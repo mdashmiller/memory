@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Grid from './components/Grid'
+import Card from './components/Card'
+import Button from './components/Button'
 
 class App extends Component {
 
@@ -6,17 +9,24 @@ class App extends Component {
 		clicked: false
 	}
 
-	// component methods
-
-	changeColor = () =>
-		this.setState({ clicked: true })
-
 	render() {
 		return (
-			<div
-				className={this.state.clicked ? 'animate' : undefined}
-				onClick={() => this.changeColor()}
-			>
+			<div>
+				<h1>Do You Remember?</h1>
+				<Grid>
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+					<Card />
+				</Grid>
+				<Button>
+					Reset
+				</Button>
 			</div>
 		)
 	}
