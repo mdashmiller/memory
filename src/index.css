@@ -14,22 +14,56 @@ h1 {
 	margin-top: 24px;
 }
 
-.animate {
-	-webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-	-webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
-	animation-name: example;
-	animation-duration: 2s;
+img {
+	opacity: 0;
+	height: 60px;
+	width: 60px;
+	display: block;
+	margin: 20px auto 0;
+}
+
+/*////////////// animations ////////////////*/
+
+.color-change {
+	-webkit-animation-name: colorChange; /* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+	-webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+	animation-name: colorChange;
+	animation-duration: 1s;
 	animation-fill-mode: forwards; 	
 }
 
+@keyframes colorChange {
+    0% {background-color: red;}
+    100% {background-color: yellow;}
+}
+
 /* Safari 4.0 - 8.0 */
-@-webkit-keyframes example {
+@-webkit-keyframes colorChange {
     from {background-color: red;}
     to {background-color: yellow;}
 }
 
-/* Standard syntax */
-@keyframes example {
-    0% {background-color: red;}
-    100% {background-color: yellow;}
+.fade-in {
+	-webkit-opacity: 1; /* Safari 4.0 - 8.0 */
+	-webkit-animation-name: fadeInOpacity; /* Safari 4.0 - 8.0 */
+	-webkit-animation-iteration-count: 1; /* Safari 4.0 - 8.0 */
+	-webkit-animation-timing-function: ease-in; /* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes fadeInOpacity {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

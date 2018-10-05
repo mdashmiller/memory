@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Card from './Card'
 import Button from './Button'
+import emoji from '../assets/Hugging_Face.png'
 
 // styled component
 const StyledGrid = styled.div`
@@ -23,16 +24,35 @@ class Grid extends Component {
 		card6Clicked: false,
 		card7Clicked: false,
 		card8Clicked: false,
-		card9Clicked: false
+		card9Clicked: false,
+		img1Clicked: false,
+		img2Clicked: false,
+		img3Clicked: false,
+		img4Clicked: false,
+		img5Clicked: false,
+		img6Clicked: false,
+		img7Clicked: false,
+		img8Clicked: false,
+		img9Clicked: false
 	}
 
 	// component methods
+
+	handleClick = number => {
+		this.changeColor(number)
+		this.fadeIn(number)
+	}
 
 	changeColor = number => {
 		const key = `card${number}Clicked`
 		this.setState({ [key]: true })
 	}
 
+	fadeIn = number => {
+		const key = `img${number}Clicked`
+		this.setState({ [key]: true })
+	}
+		
 	shuffle = () =>
 		this.setState({
 			card1Clicked: false,
@@ -43,56 +63,109 @@ class Grid extends Component {
 			card6Clicked: false,
 			card7Clicked: false,
 			card8Clicked: false,
-			card9Clicked: false
+			card9Clicked: false,
+			img1Clicked: false,
+			img2Clicked: false,
+			img3Clicked: false,
+			img4Clicked: false,
+			img5Clicked: false,
+			img6Clicked: false,
+			img7Clicked: false,
+			img8Clicked: false,
+			img9Clicked: false
 		})
 
 	render() {
 		return (
 			<StyledGrid>
 				<Card
-					className={this.state.card1Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(1)}
+					className={this.state.card1Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(1)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img1Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card2Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(2)}
+					className={this.state.card2Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(2)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img2Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card3Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(3)}
+					className={this.state.card3Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(3)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img3Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card4Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(4)}
+					className={this.state.card4Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(4)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img4Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card5Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(5)}
+					className={this.state.card5Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(5)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img5Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card6Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(6)}
+					className={this.state.card6Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(6)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img6Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card7Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(7)}
+					className={this.state.card7Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(7)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img7Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card8Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(8)}
+					className={this.state.card8Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(8)}
 				>
+					<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img8Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<Card
-					className={this.state.card9Clicked ? 'animate' : undefined}
-					onClick={() => this.changeColor(9)}
-				>
+					className={this.state.card9Clicked ? 'color-change' : undefined}
+					onClick={() => this.handleClick(9)}
+				>	<img
+						src={emoji} 
+						alt="hugging face emoji"
+						className={this.state.img9Clicked ? 'fade-in' : undefined}
+					/>
 				</Card>
 				<div className="button-row placeholder"></div>
 				<Button
