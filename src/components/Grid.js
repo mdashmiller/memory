@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Card from './Card'
 import Button from './Button'
-import emoji from '../assets/Hugging_Face.png'
+import emoji from '../assets/hugging-face.png'
 
 // styled component
 const StyledGrid = styled.div`
