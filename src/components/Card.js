@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const Card = styled.div`
-	height: 100px;
-	width: 80px;
+	height: 80px;
+	width: 72px;
 	border-radius: 5px;
 	background-color: red;
 	cursor: pointer;
