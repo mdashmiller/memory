@@ -65,22 +65,44 @@ class Grid extends Component {
 	}
 
 	setRandomInts = () => {
-		// creates an array of random integers
-		// equal in length to emojisArr
-		// and sets state accordingly
+		// creates an array of random integer duplicate-pairs
+		// equal in length to the number of cards and
+		// sets state accordingly
 		let { randomInts } = this.state
-		randomInts = []
-		for (let x = 0; x < emojisArr.length; x++) {
-				randomInts.push(this.getRandomInt(emojisArr.length))
+		randomInts = []//[8,8]
+		for (let x = 0; x < 6; x++) {
+				//const randomInt = this.getRandomInt(emojisArr.length)
+				//let randomInt = this.getRandomInt(emojisArr.length)
+				//this.checkArrayForInt(randomInt, randomInts)
+				const randomInt = this.createUniqueInt(randomInts)//
+				randomInts.push(randomInt)
+				randomInts.push(randomInt)
 		}
+		//this.randomizeArray(randomInts)
 		this.setState({ randomInts })
 	}
 
 	getRandomInt = max =>
 		// creates an almost-random integer
-		// equal to or smaller than the length
+		// equal to or less than the highest index
 		// of emojisArr
 		Math.floor(Math.random() * Math.floor(max))
+
+	createUniqueInt = arr => {//[8,8]
+		const randomInt = this.getRandomInt(emojisArr.length)//8
+		if (arr.includes(randomInt)) {
+			this.createUniqueInt(arr)
+		} else {
+			return randomInt
+		}
+	}
+
+	randomizeArray = arr => {
+		const randomizedArr = arr.sort(
+			() => (0.5 - Math.random())
+		)
+		this.setState({ randomInts: randomizedArr })
+	}
 
 	shuffle = () => {
 		// resets state to its intial configuration and
@@ -124,6 +146,8 @@ class Grid extends Component {
 		
 	render() {
 		const { randomInts } = this.state
+		console.log(randomInts)
+		console.log(typeof randomInts[0])
 		return (
 			<StyledGrid>
 				<Card
@@ -191,7 +215,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(7)}
 				>
 					<img
-						src={emojisArr[randomInts[6]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img7Clicked ? 'fade-in' : undefined}
 					/>
@@ -201,7 +225,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(8)}
 				>
 					<img
-						src={emojisArr[randomInts[7]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img8Clicked ? 'fade-in' : undefined}
 					/>
@@ -211,7 +235,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(9)}
 				>	
 					<img
-						src={emojisArr[randomInts[8]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img9Clicked ? 'fade-in' : undefined}
 					/>
@@ -221,7 +245,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(10)}
 				>	
 					<img
-						src={emojisArr[randomInts[9]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img10Clicked ? 'fade-in' : undefined}
 					/>
@@ -231,7 +255,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(11)}
 				>	
 					<img
-						src={emojisArr[randomInts[10]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img11Clicked ? 'fade-in' : undefined}
 					/>
@@ -241,7 +265,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(12)}
 				>	
 					<img
-						src={emojisArr[randomInts[11]]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
 						className={this.state.img12Clicked ? 'fade-in' : undefined}
 					/>
