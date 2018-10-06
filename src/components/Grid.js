@@ -34,30 +34,52 @@ class Grid extends Component {
 		img7Clicked: false,
 		img8Clicked: false,
 		img9Clicked: false,
-		randomInts: null
+		randomInts: []
 	}
 
 	// component methods
 
 	handleClick = number => {
+		// routes interaction with 'reset'
+		// button to proper channels
 		this.changeColor(number)
 		this.fadeIn(number)
 	}
 
 	changeColor = number => {
+		// sets the state of each card that is clicked
 		const key = `card${number}Clicked`
 		this.setState({ [key]: true })
 	}
 
 	fadeIn = number => {
+		// sets the state for the img on each card clicked
 		const key = `img${number}Clicked`
 		this.setState({ [key]: true })
 	}
 
+	setRandomInts = () => {
+		// creates an array of random integers
+		// equal in length to emojisArr
+		// and sets state accordingly
+		let { randomInts } = this.state
+		randomInts = []
+		for (let x = 0; x < emojisArr.length; x++) {
+				randomInts.push(this.getRandomInt(emojisArr.length))
+		}
+		this.setState({ randomInts })
+	}
+
 	getRandomInt = max =>
+		// creates an almost-random integer
+		// equal to or smaller than the length
+		// of emojisArr
 		Math.floor(Math.random() * Math.floor(max))
 
-	shuffle = () =>
+	shuffle = () => {
+		// resets state to its intial configuration and
+		// calls for the generation of a new
+		// array of random ints
 		this.setState({
 			card1Clicked: false,
 			card2Clicked: false,
@@ -77,19 +99,15 @@ class Grid extends Component {
 			img7Clicked: false,
 			img8Clicked: false,
 			img9Clicked: false,
-			randomInts: null
+			randomInts: []
 		})
-
+		this.setRandomInts()
+	}
+		
 	// lifecycle methods
 
 	componentDidMount() {
-		const randomInts = []
-		if (!this.state.randomInts) {
-			for (let x = 0; x < emojisArr.length; x++) {
-				randomInts.push(this.getRandomInt(emojisArr.length))
-			}
-			this.setState({ randomInts })
-		}
+		this.setRandomInts()
 	}
 		
 	render() {
