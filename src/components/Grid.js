@@ -111,8 +111,7 @@ class Grid extends Component {
 	}
 		
 	render() {
-		console.log(this.state.randomInts)
-		//console.log(this.state.randomInts[0])
+		const { randomInts } = this.state
 		return (
 			<StyledGrid>
 				<Card
@@ -120,7 +119,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(1)}
 				>
 					<img
-						src={emojisArr[0]} 
+						src={emojisArr[randomInts[0]]} 
 						alt="hugging face emoji"
 						className={this.state.img1Clicked ? 'fade-in' : undefined}
 					/>
@@ -130,7 +129,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(2)}
 				>
 					<img
-						src={emojisArr[1]} 
+						src={emojisArr[randomInts[1]]} 
 						alt="hugging face emoji"
 						className={this.state.img2Clicked ? 'fade-in' : undefined}
 					/>
@@ -140,7 +139,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(3)}
 				>
 					<img
-						src={emojisArr[2]} 
+						src={emojisArr[randomInts[2]]} 
 						alt="hugging face emoji"
 						className={this.state.img3Clicked ? 'fade-in' : undefined}
 					/>
@@ -150,7 +149,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(4)}
 				>
 					<img
-						src={emojisArr[3]} 
+						src={emojisArr[randomInts[3]]} 
 						alt="hugging face emoji"
 						className={this.state.img4Clicked ? 'fade-in' : undefined}
 					/>
@@ -160,7 +159,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(5)}
 				>
 					<img
-						src={emojisArr[4]} 
+						src={emojisArr[randomInts[4]]} 
 						alt="hugging face emoji"
 						className={this.state.img5Clicked ? 'fade-in' : undefined}
 					/>
@@ -170,7 +169,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(6)}
 				>
 					<img
-						src={emojisArr[5]} 
+						src={emojisArr[randomInts[5]]} 
 						alt="hugging face emoji"
 						className={this.state.img6Clicked ? 'fade-in' : undefined}
 					/>
@@ -180,7 +179,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(7)}
 				>
 					<img
-						src={emojisArr[6]} 
+						src={emojisArr[randomInts[6]]} 
 						alt="hugging face emoji"
 						className={this.state.img7Clicked ? 'fade-in' : undefined}
 					/>
@@ -190,7 +189,7 @@ class Grid extends Component {
 					onClick={() => this.handleClick(8)}
 				>
 					<img
-						src={emojisArr[7]} 
+						src={emojisArr[randomInts[7]]} 
 						alt="hugging face emoji"
 						className={this.state.img8Clicked ? 'fade-in' : undefined}
 					/>
@@ -199,7 +198,7 @@ class Grid extends Component {
 					className={this.state.card9Clicked ? 'color-change' : undefined}
 					onClick={() => this.handleClick(9)}
 				>	<img
-						src={emojisArr[8]} 
+						src={emojisArr[randomInts[8]]} 
 						alt="hugging face emoji"
 						className={this.state.img9Clicked ? 'fade-in' : undefined}
 					/>
