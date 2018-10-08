@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Button = styled.button`
 	height: 40px;
-	width: 80px;
+	width: 72px;
 	text-align: center;
 	border-radius: 7px;
 	margin: 24px auto 0;
