@@ -41,7 +41,8 @@ class Grid extends Component {
 		img11Clicked: false,
 		img12Clicked: false,
 		randomInts: [],
-		flippedCards: []
+		flippedCards: [],
+		numOfCardsFlipped: 0
 	}
 
 	// component methods
@@ -52,6 +53,7 @@ class Grid extends Component {
 		this.changeColor(number)
 		this.fadeIn(number)
 		this.trackFlippedCards(randomInt)
+		this.setNumOfCardsFlipped()
 	}
 
 	changeColor = number => {
@@ -71,6 +73,52 @@ class Grid extends Component {
 		flippedCards.push(randomInt)
 		this.setState({ flippedCards })
 	}
+
+	setNumOfCardsFlipped = () => {
+		this.setState(prevState => {
+			const { numOfCardsFlipped } = prevState
+			return {
+				numOfCardsFlipped: numOfCardsFlipped + 1
+			}
+		})
+		this.checkCards()
+	}
+		
+	checkCards = () => {
+		if (this.state.numOfCardsFlipped === 1) {
+			setTimeout(this.flipBack, 2250)	
+		}
+	}
+
+	flipBack = () =>
+		this.setState({
+			card1Clicked: false,
+			card2Clicked: false,
+			card3Clicked: false,
+			card4Clicked: false,
+			card5Clicked: false,
+			card6Clicked: false,
+			card7Clicked: false,
+			card8Clicked: false,
+			card9Clicked: false,
+			card10Clicked: false,
+			card11Clicked: false,
+			card12Clicked: false,
+			img1Clicked: false,
+			img2Clicked: false,
+			img3Clicked: false,
+			img4Clicked: false,
+			img5Clicked: false,
+			img6Clicked: false,
+			img7Clicked: false,
+			img8Clicked: false,
+			img9Clicked: false,
+			img10Clicked: false,
+			img11Clicked: false,
+			img12Clicked: false,
+			flippedCards: [],
+			numOfCardsFlipped: 0
+		})
 
 	setRandomInts = () => {
 		// creates an array of random integer duplicate-pairs
@@ -117,33 +165,9 @@ class Grid extends Component {
 		// calls for the generation of a new
 		// array of random ints
 		this.setState({
-			card1Clicked: false,
-			card2Clicked: false,
-			card3Clicked: false,
-			card4Clicked: false,
-			card5Clicked: false,
-			card6Clicked: false,
-			card7Clicked: false,
-			card8Clicked: false,
-			card9Clicked: false,
-			card10Clicked: false,
-			card11Clicked: false,
-			card12Clicked: false,
-			img1Clicked: false,
-			img2Clicked: false,
-			img3Clicked: false,
-			img4Clicked: false,
-			img5Clicked: false,
-			img6Clicked: false,
-			img7Clicked: false,
-			img8Clicked: false,
-			img9Clicked: false,
-			img10Clicked: false,
-			img11Clicked: false,
-			img12Clicked: false,
-			randomInts: [],
-			flippedCards: []
+			randomInts: []
 		})
+		this.flipBack()
 		this.setRandomInts()
 	}
 		
@@ -157,6 +181,7 @@ class Grid extends Component {
 		const { randomInts } = this.state
 		console.log(`randomInts: ${randomInts}`)
 		console.log(`flippedCards: ${this.state.flippedCards}`)
+		console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
 		return (
 			<StyledGrid>
 				<Card
