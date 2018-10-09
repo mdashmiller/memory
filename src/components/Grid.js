@@ -40,16 +40,18 @@ class Grid extends Component {
 		img10Clicked: false,
 		img11Clicked: false,
 		img12Clicked: false,
-		randomInts: []
+		randomInts: [],
+		flippedCards: []
 	}
 
 	// component methods
 
-	handleClick = number => {
+	handleClick = (number, randomInt) => {
 		// routes interaction with 'reset'
 		// button to proper channels
 		this.changeColor(number)
 		this.fadeIn(number)
+		this.trackFlippedCards(randomInt)
 	}
 
 	changeColor = number => {
@@ -62,6 +64,12 @@ class Grid extends Component {
 		// sets the state for the img on each card clicked
 		const key = `img${number}Clicked`
 		this.setState({ [key]: true })
+	}
+
+	trackFlippedCards = randomInt => {
+		const { flippedCards } = this.state
+		flippedCards.push(randomInt)
+		this.setState({ flippedCards })
 	}
 
 	setRandomInts = () => {
@@ -133,7 +141,8 @@ class Grid extends Component {
 			img10Clicked: false,
 			img11Clicked: false,
 			img12Clicked: false,
-			randomInts: []
+			randomInts: [],
+			flippedCards: []
 		})
 		this.setRandomInts()
 	}
@@ -146,13 +155,13 @@ class Grid extends Component {
 	
 	render() {
 		const { randomInts } = this.state
-		console.log(randomInts)
-		console.log(typeof randomInts[0])
+		console.log(`randomInts: ${randomInts}`)
+		console.log(`flippedCards: ${this.state.flippedCards}`)
 		return (
 			<StyledGrid>
 				<Card
 					className={this.state.card1Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(1)}
+					onClick={() => this.handleClick(1, randomInts[0])}
 				>
 					<img
 						src={emojisArr[randomInts[0]]} 
@@ -162,7 +171,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card2Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(2)}
+					onClick={() => this.handleClick(2, randomInts[1])}
 				>
 					<img
 						src={emojisArr[randomInts[1]]} 
@@ -172,7 +181,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card3Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(3)}
+					onClick={() => this.handleClick(3, randomInts[2])}
 				>
 					<img
 						src={emojisArr[randomInts[2]]} 
@@ -182,7 +191,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card4Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(4)}
+					onClick={() => this.handleClick(4, randomInts[3])}
 				>
 					<img
 						src={emojisArr[randomInts[3]]} 
@@ -192,7 +201,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card5Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(5)}
+					onClick={() => this.handleClick(5, randomInts[4])}
 				>
 					<img
 						src={emojisArr[randomInts[4]]} 
@@ -202,7 +211,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card6Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(6)}
+					onClick={() => this.handleClick(6, randomInts[5])}
 				>
 					<img
 						src={emojisArr[randomInts[5]]} 
@@ -212,7 +221,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card7Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(7)}
+					onClick={() => this.handleClick(7, randomInts[6])}
 				>
 					<img
 						src={emojisArr[randomInts[6]]} 
@@ -222,7 +231,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card8Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(8)}
+					onClick={() => this.handleClick(8, randomInts[7])}
 				>
 					<img
 						src={emojisArr[randomInts[7]]} 
@@ -232,7 +241,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card9Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(9)}
+					onClick={() => this.handleClick(9, randomInts[8])}
 				>	
 					<img
 						src={emojisArr[randomInts[8]]} 
@@ -242,7 +251,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card10Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(10)}
+					onClick={() => this.handleClick(10, randomInts[9])}
 				>	
 					<img
 						src={emojisArr[randomInts[9]]} 
@@ -252,7 +261,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card11Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(11)}
+					onClick={() => this.handleClick(11, randomInts[10])}
 				>	
 					<img
 						src={emojisArr[randomInts[10]]} 
@@ -262,7 +271,7 @@ class Grid extends Component {
 				</Card>
 				<Card
 					className={this.state.card12Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(12)}
+					onClick={() => this.handleClick(12, randomInts[11])}
 				>	
 					<img
 						src={emojisArr[randomInts[11]]} 
