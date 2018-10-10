@@ -41,8 +41,9 @@ class Grid extends Component {
 		img11Clicked: false,
 		img12Clicked: false,
 		randomInts: [],
-		//cardFlipped: false,
-		flippedCard: null
+		flippedCard: null,
+		imgMatches: [],
+		posMatches: []
 	}
 
 	// component methods
@@ -53,7 +54,7 @@ class Grid extends Component {
 		this.changeColor(cardPosition)
 		this.fadeIn(cardPosition)
 		//this.trackFlippedCards(imgNumber)
-		this.setFlippedCard(imgNumber)
+		this.setFlippedCard(imgNumber, cardPosition)
 	}
 
 	changeColor = cardPosition => {
@@ -67,25 +68,29 @@ class Grid extends Component {
 		const key = `img${cardPostion}Clicked`
 		this.setState({ [key]: true })
 	}
-	/*
-	trackFlippedCards = imgNumber => {//2
-		const { flippedCards } = this.state//[2]
-		flippedCards.push(imgNumber)
-		this.setState({ flippedCards })//[2, 2]
-	}
-	*/
-	setFlippedCard = imgNumber => {
+
+	setFlippedCard = (imgNumber, cardPosition) => {
+		// keeps track of last card user has selected
 		this.setState({ flippedCard: imgNumber })
-		this.checkCards(imgNumber)//2
+		this.checkCards(imgNumber, cardPosition)
 	}
 		
-	checkCards = imgNumber => {
+	checkCards = (imgNumber, cardPosition) => {
+		// checks to see if the card selected matches
+		// the previous card selected
 		if (this.state.flippedCard) {
 			if (this.state.flippedCard !== imgNumber) {
 				setTimeout(this.flipBack, 2250)
 			} else {
-				console.log('Match!')
-				this.setState({ flippedCard: null })
+				const imgMatches = []
+				const posMatches = []
+				imgMatches.push(imgNumber)
+				posMatches.push(cardPosition)
+				this.setState({
+					flippedCard: null,
+					imgMatches,
+					posMatches
+				})
 			}
 		}
 	}
