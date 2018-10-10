@@ -41,52 +41,52 @@ class Grid extends Component {
 		img11Clicked: false,
 		img12Clicked: false,
 		randomInts: [],
-		flippedCards: [],
-		numOfCardsFlipped: 0
+		//cardFlipped: false,
+		flippedCard: null
 	}
 
 	// component methods
 
-	handleClick = (number, randomInt) => {
+	handleClick = (cardPosition, imgNumber) => {//1, 2
 		// routes interaction with 'reset'
 		// button to proper channels
-		this.changeColor(number)
-		this.fadeIn(number)
-		this.trackFlippedCards(randomInt)
-		this.setNumOfCardsFlipped()
+		this.changeColor(cardPosition)
+		this.fadeIn(cardPosition)
+		//this.trackFlippedCards(imgNumber)
+		this.setFlippedCard(imgNumber)
 	}
 
-	changeColor = number => {
+	changeColor = cardPosition => {
 		// sets the state of each card that is clicked
-		const key = `card${number}Clicked`
+		const key = `card${cardPosition}Clicked`
 		this.setState({ [key]: true })
 	}
 
-	fadeIn = number => {
+	fadeIn = cardPostion => {
 		// sets the state for the img on each card clicked
-		const key = `img${number}Clicked`
+		const key = `img${cardPostion}Clicked`
 		this.setState({ [key]: true })
 	}
-
-	trackFlippedCards = randomInt => {
-		const { flippedCards } = this.state
-		flippedCards.push(randomInt)
-		this.setState({ flippedCards })
+	/*
+	trackFlippedCards = imgNumber => {//2
+		const { flippedCards } = this.state//[2]
+		flippedCards.push(imgNumber)
+		this.setState({ flippedCards })//[2, 2]
 	}
-
-	setNumOfCardsFlipped = () => {
-		this.setState(prevState => {
-			const { numOfCardsFlipped } = prevState
-			return {
-				numOfCardsFlipped: numOfCardsFlipped + 1
-			}
-		})
-		this.checkCards()
+	*/
+	setFlippedCard = imgNumber => {
+		this.setState({ flippedCard: imgNumber })
+		this.checkCards(imgNumber)//2
 	}
 		
-	checkCards = () => {
-		if (this.state.numOfCardsFlipped === 1) {
-			setTimeout(this.flipBack, 2250)	
+	checkCards = imgNumber => {
+		if (this.state.flippedCard) {
+			if (this.state.flippedCard !== imgNumber) {
+				setTimeout(this.flipBack, 2250)
+			} else {
+				console.log('Match!')
+				this.setState({ flippedCard: null })
+			}
 		}
 	}
 
@@ -116,8 +116,7 @@ class Grid extends Component {
 			img10Clicked: false,
 			img11Clicked: false,
 			img12Clicked: false,
-			flippedCards: [],
-			numOfCardsFlipped: 0
+			flippedCard: null
 		})
 
 	setRandomInts = () => {
@@ -180,8 +179,8 @@ class Grid extends Component {
 	render() {
 		const { randomInts } = this.state
 		console.log(`randomInts: ${randomInts}`)
-		console.log(`flippedCards: ${this.state.flippedCards}`)
-		console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
+		console.log(`flippedCard: ${this.state.flippedCard}`)
+		//console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
 		return (
 			<StyledGrid>
 				<Card
