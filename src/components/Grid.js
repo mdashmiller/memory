@@ -91,6 +91,7 @@ class Grid extends Component {
 		// equal in length to the number of cards and
 		// stores the array in state
 		let { randomInts } = this.state
+		randomInts = []
 		// there are 12 cards, so 6 random integers
 		// need to be created and pushed in duplicate
 		// into the randomInts array
@@ -148,6 +149,11 @@ class Grid extends Component {
 	
 	render() {
 		const { randomInts, positionsClicked, posMatches } = this.state
+		console.log(`randomInts: ${randomInts}`)
+		console.log(`positionsClicked: ${positionsClicked}`)
+		console.log(`posMatches: ${posMatches}`)
+		console.log(`lastImgRevealed: ${this.state.lastImgRevealed}`)
+		console.log(`lastPosRevealed: ${this.state.lastPosRevealed}`)
 		return (
 			<StyledGrid>
 				<Card
