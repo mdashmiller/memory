@@ -16,6 +16,7 @@ const StyledGrid = styled.div`
 class Grid extends Component {
 
 	state = {
+		/*
 		card1Clicked: false,
 		card2Clicked: false,
 		card3Clicked: false,
@@ -40,6 +41,9 @@ class Grid extends Component {
 		img10Clicked: false,
 		img11Clicked: false,
 		img12Clicked: false,
+		*/
+		positionsClicked: [],
+		imgMatchesClicked: [],
 		randomInts: [],
 		flippedCard: null,
 		imgMatches: [],
@@ -59,8 +63,13 @@ class Grid extends Component {
 
 	changeColor = cardPosition => {
 		// sets the state of each card that is clicked
+		const { positionsClicked } = this.state
+		positionsClicked.push(cardPosition)
+		this.setState({ positionsClicked })
+		/*
 		const key = `card${cardPosition}Clicked`
 		this.setState({ [key]: true })
+		*/
 	}
 
 	fadeIn = cardPostion => {
@@ -182,14 +191,14 @@ class Grid extends Component {
 	}
 	
 	render() {
-		const { randomInts } = this.state
+		const { randomInts, positionsClicked } = this.state
 		console.log(`randomInts: ${randomInts}`)
 		console.log(`flippedCard: ${this.state.flippedCard}`)
 		//console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
 		return (
 			<StyledGrid>
 				<Card
-					className={this.state.card1Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(1) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(1, randomInts[0])}
 				>
 					<img
@@ -199,7 +208,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card2Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(2) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(2, randomInts[1])}
 				>
 					<img
@@ -209,7 +218,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card3Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(3) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(3, randomInts[2])}
 				>
 					<img
@@ -219,7 +228,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card4Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(4) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(4, randomInts[3])}
 				>
 					<img
@@ -229,7 +238,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card5Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(5) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(5, randomInts[4])}
 				>
 					<img
@@ -239,7 +248,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card6Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(6) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(6, randomInts[5])}
 				>
 					<img
@@ -249,7 +258,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card7Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(7) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(7, randomInts[6])}
 				>
 					<img
@@ -259,7 +268,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card8Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(8) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(8, randomInts[7])}
 				>
 					<img
@@ -269,7 +278,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card9Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(9) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(9, randomInts[8])}
 				>	
 					<img
@@ -279,7 +288,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card10Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(10) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(10, randomInts[9])}
 				>	
 					<img
@@ -289,7 +298,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card11Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(11) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(11, randomInts[10])}
 				>	
 					<img
@@ -299,7 +308,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={this.state.card12Clicked ? 'color-change' : undefined}
+					className={positionsClicked.includes(12) ? 'color-change' : undefined}
 					onClick={() => this.handleClick(12, randomInts[11])}
 				>	
 					<img
