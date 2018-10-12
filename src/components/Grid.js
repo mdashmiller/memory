@@ -16,135 +16,70 @@ const StyledGrid = styled.div`
 class Grid extends Component {
 
 	state = {
-		/*
-		card1Clicked: false,
-		card2Clicked: false,
-		card3Clicked: false,
-		card4Clicked: false,
-		card5Clicked: false,
-		card6Clicked: false,
-		card7Clicked: false,
-		card8Clicked: false,
-		card9Clicked: false,
-		card10Clicked: false,
-		card11Clicked: false,
-		card12Clicked: false,
-		img1Clicked: false,
-		img2Clicked: false,
-		img3Clicked: false,
-		img4Clicked: false,
-		img5Clicked: false,
-		img6Clicked: false,
-		img7Clicked: false,
-		img8Clicked: false,
-		img9Clicked: false,
-		img10Clicked: false,
-		img11Clicked: false,
-		img12Clicked: false,
-		*/
-		positionsClicked: [],//[1, 3]
-		lastImgRevealed: null,//12
-		lastPosRevealed: null,//1
 		randomInts: [],
-		posMatches: []//[]
+		positionsClicked: [],
+		lastImgRevealed: null,
+		lastPosRevealed: null,
+		posMatches: []
 	}
 
 	// component methods
 
-	handleClick = (cardPosition, imgNumber) => {//3, 12
-		// routes interaction with 'reset'
-		// button to proper channels
+	handleClick = (cardPosition, imgNumber) => {
+		// routes user interactions to proper channels
 		this.flipCard(cardPosition, imgNumber)
 		this.checkForMatch(imgNumber, cardPosition)
-		
-		//this.fadeIn(cardPosition)
-		//this.trackFlippedCards(imgNumber)
-		//this.setFlippedCard(imgNumber, cardPosition)
 	}
 
-	checkForMatch = (imgNumber, cardPosition) => {//12, 3
-		const { lastImgRevealed, lastPosRevealed, posMatches } = this.state//12, 1, []
+	flipCard = (cardPosition, imgNumber) => {
+		// sets the state of each card that is clicked
+		const { positionsClicked, lastPosRevealed } = this.state
+		positionsClicked.push(cardPosition)
+		// if lastPosRevealed is empty then fill it with
+		// the position of the card the user just clicked
+		// thus starting a new comparison cycle
+		const lastPos = (!lastPosRevealed) ? cardPosition : lastPosRevealed
+		this.setState({
+			positionsClicked,
+			lastImgRevealed: imgNumber,
+			lastPosRevealed: lastPos
+		})
+	}
+
+	checkForMatch = (imgNumber, cardPosition) => {
+		const { lastImgRevealed, lastPosRevealed, posMatches } = this.state
+		// if this is the first card of the comparison cycle
+		// then don't do anything
 		if (lastImgRevealed) {
+			// if this is the second card of the comparison cycle
+			// and its image is the same as the first it's a match!
 			if (lastImgRevealed === imgNumber) {
+				// the positions of the matching cards are noted
 				posMatches.push(lastPosRevealed)
 				posMatches.push(cardPosition)
-				this.recordMatch(posMatches)//[1, 3]
+				this.recordMatch(posMatches)
 			} else {
-				/*
-				this.setState({
-					lastImgRevealed: null,
-					lastPosRevealed: null
-				})
-				*/
+				// if the second card does not match the
+				// first then they are flipped back over
+				// so the user can try again
 				setTimeout(this.flipBack, 2000)
 			}
 		} 
 	}
 
-	recordMatch = posMatches =>//[1, 3]
+	recordMatch = posMatches =>
+		// after the user finds a match, the positions
+		// of the matching cards are stored in state
+		// and a new comparison cycle is started
 		this.setState({
 			posMatches,
 			lastImgRevealed: null,
 			lastPosRevealed: null
 		})
 
-	flipCard = (cardPosition, imgNumber) => {//3, 12
-		// sets the state of each card that is clicked
-		const { positionsClicked } = this.state//[1]
-		positionsClicked.push(cardPosition)//[1, 3]
-		let lastPos
-		if (this.state.lastPosRevealed === null) {
-			lastPos = cardPosition
-		} else {
-			lastPos = this.state.lastPosRevealed
-		}
-		this.setState({
-			positionsClicked,//[1, 3]
-			lastImgRevealed: imgNumber,//12
-			lastPosRevealed: lastPos//
-		})
-		/*
-		const key = `card${cardPosition}Clicked`
-		this.setState({ [key]: true })
-		*/
-	}
-/*
-	fadeIn = cardPostion => {
-		// sets the state for the img on each card clicked
-		const key = `img${cardPostion}Clicked`
-		this.setState({ [key]: true })
-	}
-
-	setFlippedCard = (imgNumber, cardPosition) => {
-		// keeps track of last card user has selected
-		this.setState({ flippedCard: imgNumber })
-		this.checkCards(imgNumber, cardPosition)
-	}
-		*/
-
-	
-/*
-	checkCards = (imgNumber, cardPosition) => {
-		// checks to see if the card selected matches
-		// the previous card selected
-		if (this.state.flippedCard) {
-			if (this.state.flippedCard !== imgNumber) {
-				setTimeout(this.flipBack, 2250)
-			} else {
-				const imgMatches = []
-				const posMatches = []
-				imgMatches.push(imgNumber)
-				posMatches.push(cardPosition)
-				this.setState({
-					flippedCard: null,
-					imgMatches,
-					posMatches
-				})
-			}
-		}
-	}
-*/
 	flipBack = () =>
+		// after every 2 cards that are revealed, flip
+		// back over any cards that don't match
 		this.setState({
 			positionsClicked: [],
 			lastImgRevealed: null,
@@ -154,19 +89,31 @@ class Grid extends Component {
 	setRandomInts = () => {
 		// creates an array of random integer duplicate-pairs
 		// equal in length to the number of cards and
-		// sets state accordingly
+		// stores the array in state
 		let { randomInts } = this.state
-		randomInts = []//[8,8]
+		// there are 12 cards, so 6 random integers
+		// need to be created and pushed in duplicate
+		// into the randomInts array
 		for (let x = 0; x < 6; x++) {
-				//const randomInt = this.getRandomInt(emojisArr.length)
-				//let randomInt = this.getRandomInt(emojisArr.length)
-				//this.checkArrayForInt(randomInt, randomInts)
-				const randomInt = this.createUniqueInt(randomInts)//
-				randomInts.push(randomInt)
-				randomInts.push(randomInt)
+			const randomInt = this.createUniqueInt(randomInts)
+			randomInts.push(randomInt)
+			randomInts.push(randomInt)
 		}
-		this.randomizeArray(randomInts)
-		this.setState({ randomInts })
+		const randomizedArr = this.randomizeArray(randomInts)
+		this.setState({ randomInts: randomizedArr })
+	}	
+
+	createUniqueInt = arr => {
+		// calls for creation of a random integer, then
+		// compares this integer to the randomInts array, 
+		// only adding new ints to the array if they are not
+		// already included
+		const randomInt = this.getRandomInt(emojisArr.length)
+		if (arr.includes(randomInt)) {
+			return this.createUniqueInt(arr)
+		} else {
+			return randomInt
+		}
 	}
 
 	getRandomInt = max =>
@@ -175,28 +122,19 @@ class Grid extends Component {
 		// of emojisArr
 		Math.floor(Math.random() * Math.floor(max))
 
-	createUniqueInt = arr => {//[8,8]
-		const randomInt = this.getRandomInt(emojisArr.length)//8
-		if (arr.includes(randomInt)) {
-			return this.createUniqueInt(arr)
-		} else {
-			return randomInt
-		}
-	}
-
-	randomizeArray = arr => {
-		const randomizedArr = arr.sort(
-			() => (0.5 - Math.random())
+	randomizeArray = arr =>
+		// shuffles the order of integers in an array
+		arr.sort(() => 
+			(0.5 - Math.random())
 		)
-		this.setState({ randomInts: randomizedArr })
-	}
 
 	shuffle = () => {
 		// resets state to its intial configuration and
 		// calls for the generation of a new
 		// array of random ints
 		this.setState({
-			randomInts: []
+			randomInts: [],
+			posMatches: []
 		})
 		this.flipBack()
 		this.setRandomInts()
@@ -210,12 +148,6 @@ class Grid extends Component {
 	
 	render() {
 		const { randomInts, positionsClicked, posMatches } = this.state
-		console.log(`randomInts: ${randomInts}`)
-		console.log(`positionsClicked: ${this.state.positionsClicked}`)
-		console.log(`lastImgRevealed: ${this.state.lastImgRevealed}`)
-		console.log(`lastPosRevealed: ${this.state.lastPosRevealed}`)
-		console.log(`posMatches: ${this.state.posMatches}`)
-		//console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
 		return (
 			<StyledGrid>
 				<Card
