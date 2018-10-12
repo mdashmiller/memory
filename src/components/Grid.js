@@ -16,70 +16,104 @@ const StyledGrid = styled.div`
 class Grid extends Component {
 
 	state = {
-		card1Clicked: false,
-		card2Clicked: false,
-		card3Clicked: false,
-		card4Clicked: false,
-		card5Clicked: false,
-		card6Clicked: false,
-		card7Clicked: false,
-		card8Clicked: false,
-		card9Clicked: false,
-		card10Clicked: false,
-		card11Clicked: false,
-		card12Clicked: false,
-		img1Clicked: false,
-		img2Clicked: false,
-		img3Clicked: false,
-		img4Clicked: false,
-		img5Clicked: false,
-		img6Clicked: false,
-		img7Clicked: false,
-		img8Clicked: false,
-		img9Clicked: false,
-		img10Clicked: false,
-		img11Clicked: false,
-		img12Clicked: false,
-		randomInts: []
+		randomInts: [],
+		positionsClicked: [],
+		lastImgRevealed: null,
+		lastPosRevealed: null,
+		posMatches: []
 	}
 
 	// component methods
 
-	handleClick = number => {
-		// routes interaction with 'reset'
-		// button to proper channels
-		this.changeColor(number)
-		this.fadeIn(number)
+	handleClick = (cardPosition, imgNumber) => {
+		// routes user interactions to proper channels
+		this.flipCard(cardPosition, imgNumber)
+		this.checkForMatch(imgNumber, cardPosition)
 	}
 
-	changeColor = number => {
+	flipCard = (cardPosition, imgNumber) => {
 		// sets the state of each card that is clicked
-		const key = `card${number}Clicked`
-		this.setState({ [key]: true })
+		const { positionsClicked, lastPosRevealed } = this.state
+		positionsClicked.push(cardPosition)
+		// if lastPosRevealed is empty then fill it with
+		// the position of the card the user just clicked
+		// thus starting a new comparison cycle
+		const lastPos = (!lastPosRevealed) ? cardPosition : lastPosRevealed
+		this.setState({
+			positionsClicked,
+			lastImgRevealed: imgNumber,
+			lastPosRevealed: lastPos
+		})
 	}
 
-	fadeIn = number => {
-		// sets the state for the img on each card clicked
-		const key = `img${number}Clicked`
-		this.setState({ [key]: true })
+	checkForMatch = (imgNumber, cardPosition) => {
+		const { lastImgRevealed, lastPosRevealed, posMatches } = this.state
+		// if this is the first card of the comparison cycle
+		// then don't do anything
+		if (lastImgRevealed) {
+			// if this is the second card of the comparison cycle
+			// and its image is the same as the first it's a match!
+			if (lastImgRevealed === imgNumber) {
+				// the positions of the matching cards are noted
+				posMatches.push(lastPosRevealed)
+				posMatches.push(cardPosition)
+				this.recordMatch(posMatches)
+			} else {
+				// if the second card does not match the
+				// first then they are flipped back over
+				// so the user can try again
+				setTimeout(this.flipBack, 2000)
+			}
+		} 
 	}
+
+	recordMatch = posMatches =>
+		// after the user finds a match, the positions
+		// of the matching cards are stored in state
+		// and a new comparison cycle is started
+		this.setState({
+			posMatches,
+			lastImgRevealed: null,
+			lastPosRevealed: null
+		})
+
+	flipBack = () =>
+		// after every 2 cards that are revealed, flip
+		// back over any cards that don't match
+		this.setState({
+			positionsClicked: [],
+			lastImgRevealed: null,
+			lastPosRevealed: null
+		})
 
 	setRandomInts = () => {
 		// creates an array of random integer duplicate-pairs
 		// equal in length to the number of cards and
-		// sets state accordingly
+		// stores the array in state
 		let { randomInts } = this.state
-		randomInts = []//[8,8]
+		// there are 12 cards, so 6 random integers
+		// need to be created and pushed in duplicate
+		// into the randomInts array
 		for (let x = 0; x < 6; x++) {
-				//const randomInt = this.getRandomInt(emojisArr.length)
-				//let randomInt = this.getRandomInt(emojisArr.length)
-				//this.checkArrayForInt(randomInt, randomInts)
-				const randomInt = this.createUniqueInt(randomInts)//
-				randomInts.push(randomInt)
-				randomInts.push(randomInt)
+			const randomInt = this.createUniqueInt(randomInts)
+			randomInts.push(randomInt)
+			randomInts.push(randomInt)
 		}
-		this.randomizeArray(randomInts)
-		this.setState({ randomInts })
+		const randomizedArr = this.randomizeArray(randomInts)
+		this.setState({ randomInts: randomizedArr })
+	}	
+
+	createUniqueInt = arr => {
+		// calls for creation of a random integer, then
+		// compares this integer to the randomInts array, 
+		// only adding new ints to the array if they are not
+		// already included
+		const randomInt = this.getRandomInt(emojisArr.length)
+		if (arr.includes(randomInt)) {
+			return this.createUniqueInt(arr)
+		} else {
+			return randomInt
+		}
 	}
 
 	getRandomInt = max =>
@@ -88,53 +122,21 @@ class Grid extends Component {
 		// of emojisArr
 		Math.floor(Math.random() * Math.floor(max))
 
-	createUniqueInt = arr => {//[8,8]
-		const randomInt = this.getRandomInt(emojisArr.length)//8
-		if (arr.includes(randomInt)) {
-			return this.createUniqueInt(arr)
-		} else {
-			return randomInt
-		}
-	}
-
-	randomizeArray = arr => {
-		const randomizedArr = arr.sort(
-			() => (0.5 - Math.random())
+	randomizeArray = arr =>
+		// shuffles the order of integers in an array
+		arr.sort(() => 
+			(0.5 - Math.random())
 		)
-		this.setState({ randomInts: randomizedArr })
-	}
 
 	shuffle = () => {
 		// resets state to its intial configuration and
 		// calls for the generation of a new
 		// array of random ints
 		this.setState({
-			card1Clicked: false,
-			card2Clicked: false,
-			card3Clicked: false,
-			card4Clicked: false,
-			card5Clicked: false,
-			card6Clicked: false,
-			card7Clicked: false,
-			card8Clicked: false,
-			card9Clicked: false,
-			card10Clicked: false,
-			card11Clicked: false,
-			card12Clicked: false,
-			img1Clicked: false,
-			img2Clicked: false,
-			img3Clicked: false,
-			img4Clicked: false,
-			img5Clicked: false,
-			img6Clicked: false,
-			img7Clicked: false,
-			img8Clicked: false,
-			img9Clicked: false,
-			img10Clicked: false,
-			img11Clicked: false,
-			img12Clicked: false,
-			randomInts: []
+			randomInts: [],
+			posMatches: []
 		})
+		this.flipBack()
 		this.setRandomInts()
 	}
 		
@@ -145,129 +147,127 @@ class Grid extends Component {
 	}
 	
 	render() {
-		const { randomInts } = this.state
-		console.log(randomInts)
-		console.log(typeof randomInts[0])
+		const { randomInts, positionsClicked, posMatches } = this.state
 		return (
 			<StyledGrid>
 				<Card
-					className={this.state.card1Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(1)}
+					className={positionsClicked.includes(1) || posMatches.includes(1) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(1, randomInts[0])}
 				>
 					<img
 						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
-						className={this.state.img1Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(1) || posMatches.includes(1) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card2Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(2)}
+					className={positionsClicked.includes(2) || posMatches.includes(2) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(2, randomInts[1])}
 				>
 					<img
 						src={emojisArr[randomInts[1]]} 
 						alt="random emoji"
-						className={this.state.img2Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(2) || posMatches.includes(2) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card3Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(3)}
+					className={positionsClicked.includes(3) || posMatches.includes(3) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(3, randomInts[2])}
 				>
 					<img
 						src={emojisArr[randomInts[2]]} 
 						alt="random emoji"
-						className={this.state.img3Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(3) || posMatches.includes(3) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card4Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(4)}
+					className={positionsClicked.includes(4) || posMatches.includes(4) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(4, randomInts[3])}
 				>
 					<img
 						src={emojisArr[randomInts[3]]} 
 						alt="random emoji"
-						className={this.state.img4Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(4) || posMatches.includes(4) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card5Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(5)}
+					className={positionsClicked.includes(5) || posMatches.includes(5) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(5, randomInts[4])}
 				>
 					<img
 						src={emojisArr[randomInts[4]]} 
 						alt="random emoji"
-						className={this.state.img5Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(5) || posMatches.includes(5) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card6Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(6)}
+					className={positionsClicked.includes(6) || posMatches.includes(6) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(6, randomInts[5])}
 				>
 					<img
 						src={emojisArr[randomInts[5]]} 
 						alt="random emoji"
-						className={this.state.img6Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(6) || posMatches.includes(6) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card7Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(7)}
+					className={positionsClicked.includes(7) || posMatches.includes(7) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(7, randomInts[6])}
 				>
 					<img
 						src={emojisArr[randomInts[6]]} 
 						alt="random emoji"
-						className={this.state.img7Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(7) || posMatches.includes(7) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card8Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(8)}
+					className={positionsClicked.includes(8) || posMatches.includes(8) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(8, randomInts[7])}
 				>
 					<img
 						src={emojisArr[randomInts[7]]} 
 						alt="random emoji"
-						className={this.state.img8Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(8) || posMatches.includes(8) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card9Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(9)}
+					className={positionsClicked.includes(9) || posMatches.includes(9) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(9, randomInts[8])}
 				>	
 					<img
 						src={emojisArr[randomInts[8]]} 
 						alt="random emoji"
-						className={this.state.img9Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(9) || posMatches.includes(9) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card10Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(10)}
+					className={positionsClicked.includes(10) || posMatches.includes(10) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(10, randomInts[9])}
 				>	
 					<img
 						src={emojisArr[randomInts[9]]} 
 						alt="random emoji"
-						className={this.state.img10Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(10) || posMatches.includes(10) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card11Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(11)}
+					className={positionsClicked.includes(11) || posMatches.includes(11) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(11, randomInts[10])}
 				>	
 					<img
 						src={emojisArr[randomInts[10]]} 
 						alt="random emoji"
-						className={this.state.img11Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(11) || posMatches.includes(11) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
-					className={this.state.card12Clicked ? 'color-change' : undefined}
-					onClick={() => this.handleClick(12)}
+					className={positionsClicked.includes(12) || posMatches.includes(12) ? 'color-change' : undefined}
+					onClick={() => this.handleClick(12, randomInts[11])}
 				>	
 					<img
 						src={emojisArr[randomInts[11]]} 
 						alt="random emoji"
-						className={this.state.img12Clicked ? 'fade-in' : undefined}
+						className={positionsClicked.includes(12) || posMatches.includes(12) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<div className="button-row placeholder"></div>
