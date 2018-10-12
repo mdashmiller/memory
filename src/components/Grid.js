@@ -42,31 +42,66 @@ class Grid extends Component {
 		img11Clicked: false,
 		img12Clicked: false,
 		*/
-		positionsClicked: [],
-		lastImgRevealed: null,
+		positionsClicked: [],//[1, 3]
+		lastImgRevealed: null,//12
+		lastPosRevealed: null,//1
 		randomInts: [],
-		posMatches: []
+		posMatches: []//[]
 	}
 
 	// component methods
 
-	handleClick = (cardPosition, imgNumber) => {//1, 2
+	handleClick = (cardPosition, imgNumber) => {//3, 12
 		// routes interaction with 'reset'
 		// button to proper channels
 		this.flipCard(cardPosition, imgNumber)
+		this.checkForMatch(imgNumber, cardPosition)
+		
 		//this.fadeIn(cardPosition)
 		//this.trackFlippedCards(imgNumber)
 		//this.setFlippedCard(imgNumber, cardPosition)
-		this.checkForMatch(imgNumber, cardPosition)
 	}
 
-	flipCard = (cardPosition, imgNumber) => {
-		// sets the state of each card that is clicked
-		const { positionsClicked } = this.state
-		positionsClicked.push(cardPosition)
+	checkForMatch = (imgNumber, cardPosition) => {//12, 3
+		const { lastImgRevealed, lastPosRevealed, posMatches } = this.state//12, 1, []
+		if (lastImgRevealed) {
+			if (lastImgRevealed === imgNumber) {
+				posMatches.push(lastPosRevealed)
+				posMatches.push(cardPosition)
+				this.recordMatch(posMatches)//[1, 3]
+			} else {
+				/*
+				this.setState({
+					lastImgRevealed: null,
+					lastPosRevealed: null
+				})
+				*/
+				setTimeout(this.flipBack, 2000)
+			}
+		} 
+	}
+
+	recordMatch = posMatches =>//[1, 3]
 		this.setState({
-			positionsClicked,
-			lastImgRevealed: imgNumber
+			posMatches,
+			lastImgRevealed: null,
+			lastPosRevealed: null
+		})
+
+	flipCard = (cardPosition, imgNumber) => {//3, 12
+		// sets the state of each card that is clicked
+		const { positionsClicked } = this.state//[1]
+		positionsClicked.push(cardPosition)//[1, 3]
+		let lastPos
+		if (this.state.lastPosRevealed === null) {
+			lastPos = cardPosition
+		} else {
+			lastPos = this.state.lastPosRevealed
+		}
+		this.setState({
+			positionsClicked,//[1, 3]
+			lastImgRevealed: imgNumber,//12
+			lastPosRevealed: lastPos//
 		})
 		/*
 		const key = `card${cardPosition}Clicked`
@@ -87,21 +122,7 @@ class Grid extends Component {
 	}
 		*/
 
-	checkForMatch = (imgNumber, cardPosition) => {
-		const { lastImgRevealed, posMatches } = this.state
-		if (lastImgRevealed) {
-			if (lastImgRevealed === imgNumber) {
-				posMatches.push(cardPosition)
-				this.setState({
-					posMatches,
-					lastImgRevealed: null
-				})
-			} else {
-				this.setState({ lastImgRevealed: null })
-				setTimeout(this.flipBack, 2000)
-			}
-		} 
-	}
+	
 /*
 	checkCards = (imgNumber, cardPosition) => {
 		// checks to see if the card selected matches
@@ -124,7 +145,11 @@ class Grid extends Component {
 	}
 */
 	flipBack = () =>
-		this.setState({ positionsClicked: [] })
+		this.setState({
+			positionsClicked: [],
+			lastImgRevealed: null,
+			lastPosRevealed: null
+		})
 
 	setRandomInts = () => {
 		// creates an array of random integer duplicate-pairs
@@ -186,7 +211,10 @@ class Grid extends Component {
 	render() {
 		const { randomInts, positionsClicked, posMatches } = this.state
 		console.log(`randomInts: ${randomInts}`)
-		console.log(`flippedCard: ${this.state.flippedCard}`)
+		console.log(`positionsClicked: ${this.state.positionsClicked}`)
+		console.log(`lastImgRevealed: ${this.state.lastImgRevealed}`)
+		console.log(`lastPosRevealed: ${this.state.lastPosRevealed}`)
+		console.log(`posMatches: ${this.state.posMatches}`)
 		//console.log(`numOfCardsFlipped: ${this.state.numOfCardsFlipped}`)
 		return (
 			<StyledGrid>
@@ -197,7 +225,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[0]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(1) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(1) || posMatches.includes(1) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -207,7 +235,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[1]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(2) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(2) || posMatches.includes(2) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -217,7 +245,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[2]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(3) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(3) || posMatches.includes(3) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -227,7 +255,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[3]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(4) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(4) || posMatches.includes(4) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -237,7 +265,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[4]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(5) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(5) || posMatches.includes(5) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -247,7 +275,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[5]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(6) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(6) || posMatches.includes(6) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -257,7 +285,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[6]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(7) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(7) || posMatches.includes(7) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -267,7 +295,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[7]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(8) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(8) || posMatches.includes(8) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -277,7 +305,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[8]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(9) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(9) || posMatches.includes(9) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -287,7 +315,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[9]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(10) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(10) || posMatches.includes(10) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -297,7 +325,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[10]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(11) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(11) || posMatches.includes(11) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<Card
@@ -307,7 +335,7 @@ class Grid extends Component {
 					<img
 						src={emojisArr[randomInts[11]]} 
 						alt="random emoji"
-						className={positionsClicked.includes(12) ? 'fade-in' : undefined}
+						className={positionsClicked.includes(12) || posMatches.includes(12) ? 'fade-in' : undefined}
 					/>
 				</Card>
 				<div className="button-row placeholder"></div>
