@@ -20,7 +20,8 @@ class Grid extends Component {
 		positionsClicked: [],
 		lastImgRevealed: null,
 		lastPosRevealed: null,
-		posMatches: []
+		posMatches: [],
+		moves: 0
 	}
 
 	// component methods
@@ -58,11 +59,13 @@ class Grid extends Component {
 				posMatches.push(lastPosRevealed)
 				posMatches.push(cardPosition)
 				this.recordMatch(posMatches)
+				this.updateMoves()
 			} else {
 				// if the second card does not match the
 				// first then they are flipped back over
 				// so the user can try again
 				setTimeout(this.flipBack, 2000)
+				this.updateMoves()
 			}
 		} 
 	}
@@ -75,6 +78,14 @@ class Grid extends Component {
 			posMatches,
 			lastImgRevealed: null,
 			lastPosRevealed: null
+		})
+
+	updateMoves = () =>
+		this.setState((prevState) => {
+			const { moves } = prevState
+			return {
+				moves: moves + 1
+			}
 		})
 
 	flipBack = () =>
@@ -135,7 +146,8 @@ class Grid extends Component {
 		// array of random ints
 		this.setState({
 			randomInts: [],
-			posMatches: []
+			posMatches: [],
+			moves: 0
 		})
 		this.flipBack()
 		this.setRandomInts()
@@ -148,12 +160,15 @@ class Grid extends Component {
 	}
 	
 	render() {
-		const { randomInts, positionsClicked, posMatches } = this.state
+		const { randomInts, positionsClicked, posMatches, moves } = this.state
+		//console.log(`moves: ${this.state.moves}`)
+		/*
 		console.log(`randomInts: ${randomInts}`)
 		console.log(`positionsClicked: ${positionsClicked}`)
 		console.log(`posMatches: ${posMatches}`)
 		console.log(`lastImgRevealed: ${this.state.lastImgRevealed}`)
 		console.log(`lastPosRevealed: ${this.state.lastPosRevealed}`)
+		*/
 		return (
 			<StyledGrid>
 				<Card
@@ -278,7 +293,7 @@ class Grid extends Component {
 				</Card>
 				<div className="button-row counter">
 					<h4>MOVES</h4>
-					<div id="moves">00</div>
+					<div id="moves">{moves}</div>
 				</div>
 				<div className="button-row score">
 					<img src={emojisArr[7]} alt="smiley face"/>
