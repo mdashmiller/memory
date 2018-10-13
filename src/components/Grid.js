@@ -276,7 +276,10 @@ class Grid extends Component {
 						className={positionsClicked.includes(12) || posMatches.includes(12) ? 'fade-in' : undefined}
 					/>
 				</Card>
-				<div className="button-row "></div>
+				<div className="button-row counter">
+					<h4>MOVES</h4>
+					<div id="moves">00</div>
+				</div>
 				<div className="button-row score">
 					<img src={emojisArr[7]} alt="smiley face"/>
 					<img src={emojisArr[7]} alt="smiley face"/>

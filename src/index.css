@@ -22,6 +22,22 @@ img {
 	margin-top: 24px;
 }
 
+.counter {
+	margin: 0;
+	text-align: center;
+}
+
+h4 {
+	margin: 8px 0 0;
+}
+
+#moves {
+	width: 72px;
+	height: 40px;
+	margin: 0 auto;
+	font-size: 32px;
+}
+
 .score {
 	grid-column: 2 / span 2;
 }
