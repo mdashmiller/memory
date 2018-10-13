@@ -23,7 +23,7 @@ class Grid extends Component {
 		lastImgRevealed: null,
 		lastPosRevealed: null,
 		posMatches: [],
-		moves: 0
+		moves: '00'
 	}
 
 	// component methods
@@ -82,13 +82,22 @@ class Grid extends Component {
 			lastPosRevealed: null
 		})
 
-	updateMoves = () =>
-		this.setState((prevState) => {
-			const { moves } = prevState
-			return {
-				moves: moves + 1
-			}
-		})
+	updateMoves = () => {
+		// tracks moves made by user
+		const {moves} = this.state
+		const updatedMoves = (parseInt(moves) + 1)
+		const formattedMoves = this.zeroPad(updatedMoves)
+		this.setState({ moves: formattedMoves })
+	}
+
+	zeroPad = num => {
+		// takes a positive integer and returns a string
+		// with a propended zero for single digits
+		if (num < 10) {
+			return '0' + num
+		}
+		return num
+	}
 
 	flipBack = () =>
 		// after every 2 cards that are revealed, flip
@@ -149,7 +158,7 @@ class Grid extends Component {
 		this.setState({
 			randomInts: [],
 			posMatches: [],
-			moves: 0
+			moves: '00'
 		})
 		this.flipBack()
 		this.setRandomInts()
@@ -291,7 +300,7 @@ class Grid extends Component {
 					/>
 				</Card>
 				<div className="button-row counter">
-					<Counter moves={this.state.moves}></Counter>
+					<Counter moves={moves}></Counter>
 				</div>
 				<div className="button-row score">
 					<ScoreBoard></ScoreBoard>
