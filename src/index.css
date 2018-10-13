@@ -27,29 +27,8 @@ img {
 	text-align: center;
 }
 
-h4 {
-	margin: 4px 0 0;
-}
-
-#moves {
-	width: 40px;
-	height: 36px;
-	margin: 4px auto 0;
-	font-size: 32px;
-	border: 1px solid black;
-	border-radius: 4px;
-}
-
 .score {
 	grid-column: 2 / span 2;
-}
-
-.score img {
-	opacity: 1;
-	width: 24px;
-	height: 24px;
-	display: inline-block;
-	margin: 10px 0 0;
 }
 
 /*////////////// animations ////////////////*/

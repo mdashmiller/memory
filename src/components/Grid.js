@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Card from './Card'
+import Counter from './Counter'
+import ScoreBoard from './ScoreBoard'
 import Button from './Button'
 import emojisArr from '../assets/images-arr'
 
@@ -160,15 +162,12 @@ class Grid extends Component {
 	}
 	
 	render() {
-		const { randomInts, positionsClicked, posMatches, moves } = this.state
-		//console.log(`moves: ${this.state.moves}`)
-		/*
-		console.log(`randomInts: ${randomInts}`)
-		console.log(`positionsClicked: ${positionsClicked}`)
-		console.log(`posMatches: ${posMatches}`)
-		console.log(`lastImgRevealed: ${this.state.lastImgRevealed}`)
-		console.log(`lastPosRevealed: ${this.state.lastPosRevealed}`)
-		*/
+		const {
+			randomInts, 
+			positionsClicked, 
+			posMatches, 
+			moves 
+		} = this.state
 		return (
 			<StyledGrid>
 				<Card
@@ -292,23 +291,18 @@ class Grid extends Component {
 					/>
 				</Card>
 				<div className="button-row counter">
-					<h4>MOVES</h4>
-					<div id="moves">{moves}</div>
+					<Counter moves={this.state.moves}></Counter>
 				</div>
 				<div className="button-row score">
-					<img src={emojisArr[7]} alt="smiley face"/>
-					<img src={emojisArr[7]} alt="smiley face"/>
-					<img src={emojisArr[7]} alt="smiley face"/>
-					<img src={emojisArr[7]} alt="smiley face"/>
-					<img src={emojisArr[7]} alt="smiley face"/>
-					<img src={emojisArr[7]} alt="smiley face"/>
+					<ScoreBoard></ScoreBoard>
 				</div>
-				<Button
-					className="button-row"
-					onClick={() => this.shuffle()}
-				>
-					Reset
-				</Button>
+				<div className="button-row">
+					<Button
+						onClick={() => this.shuffle()}
+					>
+						Reset
+					</Button>
+				</div>				
 			</StyledGrid>
 		)
 	}
