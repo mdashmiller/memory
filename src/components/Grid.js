@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Card from './Card'
 import Counter from './Counter'
 import ScoreBoard from './ScoreBoard'
@@ -23,7 +23,8 @@ class Grid extends Component {
 		lastImgRevealed: null,
 		lastPosRevealed: null,
 		posMatches: [],
-		moves: '00'
+		moves: '00',
+		clickDisabled: false
 	}
 
 	// component methods
@@ -32,6 +33,7 @@ class Grid extends Component {
 		// routes user interactions to proper channels
 		this.flipCard(cardPosition, imgNumber)
 		this.checkForMatch(imgNumber, cardPosition)
+		this.disableClick()
 	}
 
 	flipCard = (cardPosition, imgNumber) => {
@@ -108,6 +110,13 @@ class Grid extends Component {
 			lastPosRevealed: null
 		})
 
+	disableClick = () => {
+		this.setState({ clickDisabled: true })
+		setTimeout(() => 
+			this.setState({ clickDisabled: false }),
+		2000)
+	}
+
 	setRandomInts = () => {
 		// creates an array of random integer duplicate-pairs
 		// equal in length to the number of cards and
@@ -175,12 +184,17 @@ class Grid extends Component {
 			randomInts, 
 			positionsClicked, 
 			posMatches, 
-			moves 
+			moves,
+			clickDisabled 
 		} = this.state
 		return (
 			<StyledGrid>
 				<Card
-					className={positionsClicked.includes(1) || posMatches.includes(1) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(1) || posMatches.includes(1) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(1, randomInts[0])}
 				>
 					<img
@@ -190,7 +204,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(2) || posMatches.includes(2) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(2) || posMatches.includes(2) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(2, randomInts[1])}
 				>
 					<img
@@ -200,7 +218,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(3) || posMatches.includes(3) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(3) || posMatches.includes(3) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(3, randomInts[2])}
 				>
 					<img
@@ -210,7 +232,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(4) || posMatches.includes(4) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(4) || posMatches.includes(4) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(4, randomInts[3])}
 				>
 					<img
@@ -220,7 +246,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(5) || posMatches.includes(5) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(5) || posMatches.includes(5) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(5, randomInts[4])}
 				>
 					<img
@@ -230,7 +260,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(6) || posMatches.includes(6) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(6) || posMatches.includes(6) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(6, randomInts[5])}
 				>
 					<img
@@ -240,7 +274,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(7) || posMatches.includes(7) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(7) || posMatches.includes(7) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(7, randomInts[6])}
 				>
 					<img
@@ -250,7 +288,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(8) || posMatches.includes(8) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(8) || posMatches.includes(8) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(8, randomInts[7])}
 				>
 					<img
@@ -260,7 +302,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(9) || posMatches.includes(9) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(9) || posMatches.includes(9) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(9, randomInts[8])}
 				>	
 					<img
@@ -270,7 +316,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(10) || posMatches.includes(10) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(10) || posMatches.includes(10) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(10, randomInts[9])}
 				>	
 					<img
@@ -280,7 +330,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(11) || posMatches.includes(11) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(11) || posMatches.includes(11) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(11, randomInts[10])}
 				>	
 					<img
@@ -290,7 +344,11 @@ class Grid extends Component {
 					/>
 				</Card>
 				<Card
-					className={positionsClicked.includes(12) || posMatches.includes(12) ? 'color-change' : undefined}
+					className={
+						`${positionsClicked.includes(12) || posMatches.includes(12) 
+							? 'color-change' : undefined} ${clickDisabled 
+							? 'disabled' : undefined}`
+					}
 					onClick={() => this.handleClick(12, randomInts[11])}
 				>	
 					<img
