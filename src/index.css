@@ -32,6 +32,9 @@ img {
 }
 
 .disabled {
+	/* prevents user from triggering multiple click
+	events on cards that have already been revealed 
+	and/or revealing more than two cards per move */
 	pointer-events: none;
 }
 
