@@ -4,6 +4,7 @@ import Card from './Card'
 import Counter from './Counter'
 import ScoreBoard from './ScoreBoard'
 import Button from './Button'
+import Winner from './Winner'
 import emojisArr from '../assets/images-arr'
 
 // styled component
@@ -180,178 +181,188 @@ class Grid extends Component {
 			moves
 		} = this.state
 		return (
-			<StyledGrid className={positionsClicked.length > 1 ? 'disabled' : undefined}>
-				<Card
-					className={
-						positionsClicked.includes(1) || posMatches.includes(1) 
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(1, randomInts[0])}
-				>
-					<img
-						src={emojisArr[randomInts[0]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(1) || posMatches.includes(1) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(2) || posMatches.includes(2)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(2, randomInts[1])}
-				>
-					<img
-						src={emojisArr[randomInts[1]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(2) || posMatches.includes(2) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(3) || posMatches.includes(3)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(3, randomInts[2])}
-				>
-					<img
-						src={emojisArr[randomInts[2]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(3) || posMatches.includes(3) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(4) || posMatches.includes(4)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(4, randomInts[3])}
-				>
-					<img
-						src={emojisArr[randomInts[3]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(4) || posMatches.includes(4) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(5) || posMatches.includes(5)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(5, randomInts[4])}
-				>
-					<img
-						src={emojisArr[randomInts[4]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(5) || posMatches.includes(5) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(6) || posMatches.includes(6)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(6, randomInts[5])}
-				>
-					<img
-						src={emojisArr[randomInts[5]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(6) || posMatches.includes(6) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(7) || posMatches.includes(7)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(7, randomInts[6])}
-				>
-					<img
-						src={emojisArr[randomInts[6]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(7) || posMatches.includes(7) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(8) || posMatches.includes(8)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(8, randomInts[7])}
-				>
-					<img
-						src={emojisArr[randomInts[7]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(8) || posMatches.includes(8) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(9) || posMatches.includes(9)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(9, randomInts[8])}
-				>	
-					<img
-						src={emojisArr[randomInts[8]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(9) || posMatches.includes(9) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(10) || posMatches.includes(10)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(10, randomInts[9])}
-				>	
-					<img
-						src={emojisArr[randomInts[9]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(10) || posMatches.includes(10) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(11) || posMatches.includes(11)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(11, randomInts[10])}
-				>	
-					<img
-						src={emojisArr[randomInts[10]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(11) || posMatches.includes(11) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<Card
-					className={
-						positionsClicked.includes(12) || posMatches.includes(12)
-							? 'color-change disabled' : undefined
-					}
-					onClick={() => this.handleClick(12, randomInts[11])}
-				>	
-					<img
-						src={emojisArr[randomInts[11]]} 
-						alt="random emoji"
-						className={positionsClicked.includes(12) || posMatches.includes(12) ? 'fade-in' : undefined}
-					/>
-				</Card>
-				<div className="button-row counter">
-					<Counter moves={moves}></Counter>
-				</div>
-				<div className="button-row score">
-					<ScoreBoard posMatches={this.state.posMatches}>
-					</ScoreBoard>
-				</div>
-				<div className="button-row">
-					<Button
-						onClick={() => this.shuffle()}
+			<div className="main">	
+				{posMatches.length === 12 &&
+					<Winner
+						moves={moves}
+						replay={() => this.shuffle()}
 					>
-						Reset
-					</Button>
-				</div>				
-			</StyledGrid>
+					</Winner>
+				}
+				<StyledGrid className={positionsClicked.length > 1 ? 'disabled' : undefined}>
+					<Card
+						className={
+							positionsClicked.includes(1) || posMatches.includes(1) 
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(1, randomInts[0])}
+					>
+						<img
+							src={emojisArr[randomInts[0]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(1) || posMatches.includes(1) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(2) || posMatches.includes(2)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(2, randomInts[1])}
+					>
+						<img
+							src={emojisArr[randomInts[1]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(2) || posMatches.includes(2) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(3) || posMatches.includes(3)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(3, randomInts[2])}
+					>
+						<img
+							src={emojisArr[randomInts[2]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(3) || posMatches.includes(3) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(4) || posMatches.includes(4)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(4, randomInts[3])}
+					>
+						<img
+							src={emojisArr[randomInts[3]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(4) || posMatches.includes(4) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(5) || posMatches.includes(5)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(5, randomInts[4])}
+					>
+						<img
+							src={emojisArr[randomInts[4]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(5) || posMatches.includes(5) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(6) || posMatches.includes(6)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(6, randomInts[5])}
+					>
+						<img
+							src={emojisArr[randomInts[5]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(6) || posMatches.includes(6) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(7) || posMatches.includes(7)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(7, randomInts[6])}
+					>
+						<img
+							src={emojisArr[randomInts[6]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(7) || posMatches.includes(7) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(8) || posMatches.includes(8)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(8, randomInts[7])}
+					>
+						<img
+							src={emojisArr[randomInts[7]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(8) || posMatches.includes(8) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(9) || posMatches.includes(9)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(9, randomInts[8])}
+					>	
+						<img
+							src={emojisArr[randomInts[8]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(9) || posMatches.includes(9) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(10) || posMatches.includes(10)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(10, randomInts[9])}
+					>	
+						<img
+							src={emojisArr[randomInts[9]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(10) || posMatches.includes(10) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(11) || posMatches.includes(11)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(11, randomInts[10])}
+					>	
+						<img
+							src={emojisArr[randomInts[10]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(11) || posMatches.includes(11) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<Card
+						className={
+							positionsClicked.includes(12) || posMatches.includes(12)
+								? 'color-change disabled' : undefined
+						}
+						onClick={() => this.handleClick(12, randomInts[11])}
+					>	
+						<img
+							src={emojisArr[randomInts[11]]} 
+							alt="random emoji"
+							className={positionsClicked.includes(12) || posMatches.includes(12) ? 'fade-in' : undefined}
+						/>
+					</Card>
+					<div className="button-row counter">
+						<Counter moves={moves}></Counter>
+					</div>
+					<div className="button-row score">
+						<ScoreBoard posMatches={this.state.posMatches}>
+						</ScoreBoard>
+					</div>
+					<div className="button-row">
+						<Button
+							onClick={() => this.shuffle()}
+							className={posMatches.length === 12 ? 'disabled' : undefined}
+						>
+							Reset
+						</Button>
+					</div>				
+				</StyledGrid>
+			</div>
 		)
 	}
 }

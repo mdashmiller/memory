@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Button = styled.button`
 	height: 40px;
@@ -17,6 +17,13 @@ const Button = styled.button`
 		&:focus {
 			outline: none;
 		}
+
+	${props => props.win && css`
+		   margin: 28px auto 0;
+		   width: 140px;
+		   background: #6534ff;
+		   color: #fccdd3;
+	`}
 `
 
 export default Button
