@@ -66,7 +66,7 @@ class Grid extends Component {
 				// if the second card does not match the
 				// first then they are flipped back over
 				// so the user can try again
-				setTimeout(this.flipBack, 2000)
+				setTimeout(this.flipBack, 1500)
 				this.updateMoves()
 			}
 		} 

@@ -1,11 +1,12 @@
 body {
-	background-color: #999;
+	background-color: #6534ff;
+	font-family: Montserrat, Verdana, sans-serif;
 }
 
 h1 {
+	font-size: 1.75em;
 	text-align: center;
-	font-family: Arial;
-	color: yellow;
+	color: #bbc4ef;
 	margin-top: 36px;
     margin-bottom: 30px;
 }
@@ -42,22 +43,22 @@ img {
 
 .color-change {
 	-webkit-animation-name: colorChange; /* Safari 4.0 - 8.0 */
-	-webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
 	-webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
 	animation-name: colorChange;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 	animation-fill-mode: forwards; 	
 }
 
 @keyframes colorChange {
-    0% {background-color: red;}
-    100% {background-color: yellow;}
+    0% {background-color: #6534ff;}
+    100% {background-color: #62bcfa;}
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes colorChange {
-    from {background-color: red;}
-    to {background-color: yellow;}
+    from {background-color: #6534ff;}
+    to {background-color: #62bcfa;}
 }
 
 .fade-in {
@@ -65,12 +66,12 @@ img {
 	-webkit-animation-name: fadeInOpacity; /* Safari 4.0 - 8.0 */
 	-webkit-animation-iteration-count: 1; /* Safari 4.0 - 8.0 */
 	-webkit-animation-timing-function: ease-in; /* Safari 4.0 - 8.0 */
-	-webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
 	opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 @keyframes fadeInOpacity {
