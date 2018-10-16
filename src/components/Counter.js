@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const CounterLabel = styled.h4`
 	color: #bbc4ef;
-	margin: 4px 0 0;
+	margin: 8px 0 0;
 `
 
 const StyledCounter = styled.div`
