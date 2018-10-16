@@ -341,7 +341,8 @@ class Grid extends Component {
 					<Counter moves={moves}></Counter>
 				</div>
 				<div className="button-row score">
-					<ScoreBoard></ScoreBoard>
+					<ScoreBoard posMatches={this.state.posMatches}>
+					</ScoreBoard>
 				</div>
 				<div className="button-row">
 					<Button
