@@ -16,7 +16,7 @@ const StyledCounter = styled.div`
     border-radius: 4px;
 `
 
-const Counter = ({ moves }) =>
+const Counter = ({ moves }) => 
 	<div>
 		<CounterLabel>MOVES</CounterLabel>
 		<StyledCounter>

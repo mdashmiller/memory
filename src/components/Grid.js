@@ -24,7 +24,9 @@ class Grid extends Component {
 		lastImgRevealed: null,
 		lastPosRevealed: null,
 		posMatches: [],
-		moves: '00'
+		moves: 0,
+		displayMoves: '00',
+		bestScore: null
 	}
 
 	// component methods
@@ -76,29 +78,42 @@ class Grid extends Component {
 	recordMatch = posMatches =>
 		// after the user finds a match, the positions
 		// of the matching cards are stored in state
-		// and a new comparison cycle is started
+		// and a new comparison cycle is started	
 		this.setState({
 			positionsClicked: [],
 			posMatches,
 			lastImgRevealed: null,
 			lastPosRevealed: null
 		})
-
+		
 	updateMoves = () => {
 		// tracks moves made by user
-		const {moves} = this.state
-		const updatedMoves = (parseInt(moves) + 1)
-		const formattedMoves = this.zeroPad(updatedMoves)
-		this.setState({ moves: formattedMoves })
+		const {moves, posMatches} = this.state
+		const updatedMoves = moves + 1
+		const updatedDisplayMoves = this.zeroPad(updatedMoves)
+		this.setState({
+			moves: updatedMoves,
+			displayMoves: updatedDisplayMoves
+		})
+		posMatches.length === 12 && this.updatebestScore(updatedMoves)		
 	}
 
 	zeroPad = num => {
-		// takes a positive integer and returns a string
+		// works correctly in this application by taking
+		// a positive integer and returns a string
 		// with a propended zero for single digits
 		if (num < 10) {
 			return '0' + num
 		}
-		return num
+		return num.toString()
+	}
+
+	updatebestScore = moves => {
+		// when user achieves a new best score
+		// update it in state
+		const { bestScore } = this.state
+		const newbestScore = (!bestScore || moves < bestScore) ? moves : bestScore
+		this.setState({ bestScore: newbestScore })
 	}
 
 	flipBack = () =>
@@ -154,14 +169,15 @@ class Grid extends Component {
 		)
 
 	shuffle = () => {
-		// resets state to its intial configuration and
+		// resets state for a new game and
 		// calls for the generation of a new
 		// array of random ints
 		this.setState({
 			randomInts: [],
 			positionsClicked: [],
 			posMatches: [],
-			moves: '00'
+			moves: 0,
+			displayMoves: '00'
 		})
 		this.flipBack()
 		this.setRandomInts()
@@ -177,9 +193,13 @@ class Grid extends Component {
 		const {
 			randomInts, 
 			positionsClicked, 
-			posMatches, 
-			moves
+			posMatches,
+			moves, 
+			displayMoves
 		} = this.state
+		console.log(`moves: ${moves}`)
+		console.log(`position matches: ${posMatches}`)
+		console.log(`best score: ${this.state.bestScore}`)
 		return (
 			<div className="main">	
 				{posMatches.length === 12 &&
@@ -347,7 +367,7 @@ class Grid extends Component {
 						/>
 					</Card>
 					<div className="button-row counter">
-						<Counter moves={moves}></Counter>
+						<Counter moves={displayMoves}></Counter>
 					</div>
 					<div className="button-row score">
 						<ScoreBoard posMatches={this.state.posMatches}>
