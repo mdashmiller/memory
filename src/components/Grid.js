@@ -111,8 +111,10 @@ class Grid extends Component {
 	updatebestScore = moves => {
 		// when user achieves a new best score
 		// update it in state
-		const { bestScore } = this.state
+		const cachedScore = localStorage.getItem('best score')
+		const bestScore = (cachedScore) ? cachedScore : this.state.bestScore
 		const newbestScore = (!bestScore || moves < bestScore) ? moves : bestScore
+		localStorage.setItem('best score', newbestScore)
 		this.setState({ bestScore: newbestScore })
 	}
 
