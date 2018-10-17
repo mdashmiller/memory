@@ -5,6 +5,7 @@ import Counter from './Counter'
 import ScoreBoard from './ScoreBoard'
 import Button from './Button'
 import Winner from './Winner'
+import SubBanner from './SubBanner'
 import emojisArr from '../assets/images-arr'
 
 // styled component
@@ -382,7 +383,8 @@ class Grid extends Component {
 						>
 							Reset
 						</Button>
-					</div>				
+					</div>
+					<SubBanner></SubBanner>				
 				</StyledGrid>
 			</div>
 		)
