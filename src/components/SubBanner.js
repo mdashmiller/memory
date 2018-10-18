@@ -11,12 +11,12 @@ const StyledSubBanner = styled.div`
 	color: #fccdd3;
 `
 
-//const cachedScore = localStorage.getItem('best score')
-//const bestScore = (cachedScore) ? cachedScore : '?'
+const displayScore = score =>
+	score ? score : '?'
 
-const SubBanner = () =>
+const SubBanner = ({ bestScore }) =>
 	<StyledSubBanner>
-		Best Score: {/*{bestScore}*/}
+		Best Score: {displayScore(bestScore)}
 	</StyledSubBanner>
 
 export default SubBanner
