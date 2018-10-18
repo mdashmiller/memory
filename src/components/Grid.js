@@ -5,6 +5,7 @@ import Counter from './Counter'
 import ScoreBoard from './ScoreBoard'
 import Button from './Button'
 import Winner from './Winner'
+import SubBanner from './SubBanner'
 import emojisArr from '../assets/images-arr'
 
 // styled component
@@ -16,6 +17,10 @@ const StyledGrid = styled.div`
 	grid-gap: 4px;
 `
 
+// track user's best score in browser memory
+const cachedScore = localStorage.getItem('best score')
+const userScore = (cachedScore) ? cachedScore : null
+
 class Grid extends Component {
 
 	state = {
@@ -26,7 +31,8 @@ class Grid extends Component {
 		posMatches: [],
 		moves: 0,
 		displayMoves: '00',
-		bestScore: null
+		bestScore: userScore,
+		newBest: false
 	}
 
 	// component methods
@@ -109,12 +115,22 @@ class Grid extends Component {
 	}
 
 	updatebestScore = moves => {
-		// when user achieves a new best score
-		// update it in state
 		const { bestScore } = this.state
-		const newbestScore = (!bestScore || moves < bestScore) ? moves : bestScore
-		this.setState({ bestScore: newbestScore })
+		// when user achieves a new best score
+		// update it in local storage and state
+		// and call for a New Record! celebration
+		if (!bestScore || moves < bestScore) {
+			const newbestScore = moves
+			localStorage.setItem('best score', newbestScore)
+			this.setState({ bestScore: newbestScore })
+			this.newRecord()		
+		}
 	}
+
+	newRecord = () =>
+		// sets state to inform the Winner component
+		// to display the New Record! announcement
+		this.setState({ newBest: true })
 
 	flipBack = () =>
 		// after every 2 cards that are revealed, flip
@@ -177,7 +193,8 @@ class Grid extends Component {
 			positionsClicked: [],
 			posMatches: [],
 			moves: 0,
-			displayMoves: '00'
+			displayMoves: '00',
+			newBest: false
 		})
 		this.flipBack()
 		this.setRandomInts()
@@ -195,16 +212,16 @@ class Grid extends Component {
 			positionsClicked, 
 			posMatches,
 			moves, 
-			displayMoves
+			displayMoves,
+			bestScore,
+			newBest
 		} = this.state
-		console.log(`moves: ${moves}`)
-		console.log(`position matches: ${posMatches}`)
-		console.log(`best score: ${this.state.bestScore}`)
 		return (
 			<div className="main">	
 				{posMatches.length === 12 &&
 					<Winner
 						moves={moves}
+						newBest={newBest}
 						replay={() => this.shuffle()}
 					>
 					</Winner>
@@ -380,7 +397,9 @@ class Grid extends Component {
 						>
 							Reset
 						</Button>
-					</div>				
+					</div>
+					<SubBanner bestScore={bestScore}>
+					</SubBanner>				
 				</StyledGrid>
 			</div>
 		)

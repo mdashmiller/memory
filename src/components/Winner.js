@@ -34,12 +34,17 @@ const BannerSubTitle = styled.p`
 
 const Winner = ({
 	moves,
+	newBest,
 	replay
 }) =>
 	<Banner>
 		<BannerTitle>Winner!!!</BannerTitle>
 		<Score>Moves: {moves}</Score>
-		<BannerSubTitle>New Record!</BannerSubTitle>
+		{newBest &&
+			<BannerSubTitle className="flicker">
+				New Record!
+			</BannerSubTitle>
+		}
 		<Button
 			win
 			onClick={replay}
