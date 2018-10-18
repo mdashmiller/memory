@@ -89,3 +89,25 @@ img {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+.flicker {
+	-webkit-animation-name: flicker;/* Safari 4.0 - 8.0 */
+	-webkit-animation-duration: 0.5s;/* Safari 4.0 - 8.0 */
+	-webkit-animation-iteration-count: infinite;/* Safari 4.0 - 8.0 */
+	animation-name: flicker;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite; 
+}
+
+@keyframes flicker {
+    0% {color: #fccdd3;} /*pink*/
+    33% {color: #92e1af;} /*seafoam*/
+    66% {color: #feff9d;} /*yellow*/
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes flicker {
+	0% {color: #fccdd3;} /*pink*/
+	33% {color: #92e1af;} /*seafoam*/
+	66% {color: #feff9d;} /*yellow*/
+}

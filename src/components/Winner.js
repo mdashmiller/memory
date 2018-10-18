@@ -41,7 +41,9 @@ const Winner = ({
 		<BannerTitle>Winner!!!</BannerTitle>
 		<Score>Moves: {moves}</Score>
 		{newBest &&
-			<BannerSubTitle>New Record!</BannerSubTitle>
+			<BannerSubTitle className="flicker">
+				New Record!
+			</BannerSubTitle>
 		}
 		<Button
 			win
