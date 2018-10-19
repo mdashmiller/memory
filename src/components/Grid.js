@@ -216,6 +216,7 @@ class Grid extends Component {
 			bestScore,
 			newBest
 		} = this.state
+		console.log(randomInts)
 		return (
 			<div className="main">	
 				{posMatches.length === 12 &&
