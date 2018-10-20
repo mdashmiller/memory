@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`has a valid snapshot 1`] = `
+<div>
+  <h1>
+    Do You Remember?
+  </h1>
+  <div
+    className="main"
+  >
+    <div
+      className="sc-gZMcBi dChKYF"
+    >
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="sleeping.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="nerd-with-glasses.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="smirk.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="tongue-out.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="kiss-face-smiling-eyes.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="kiss-face-smiling-eyes.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="sleeping.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="sweat-smile.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="tongue-out.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="sweat-smile.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="smirk.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="nerd-with-glasses.png"
+        />
+      </div>
+      <div
+        className="button-row counter"
+      >
+        <div>
+          <h4
+            className="sc-bwzfXH iOSHLe"
+          >
+            MOVES
+          </h4>
+          <div
+            className="sc-htpNat dVIvjG"
+          >
+            00
+          </div>
+        </div>
+      </div>
+      <div
+        className="button-row score"
+      >
+        <div
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+          <div
+            className="sc-bxivhb LfNcR"
+          />
+        </div>
+      </div>
+      <div
+        className="button-row"
+      >
+        <button
+          className="sc-EHOje jRqDu"
+          onClick={[Function]}
+        >
+          Reset
+        </button>
+      </div>
+      <div
+        className="sc-iwsKbI bujAyb"
+      >
+        Best Score: 
+        ?
+      </div>
+    </div>
+  </div>
+</div>
+`;
