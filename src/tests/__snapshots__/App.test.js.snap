@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`has a valid snapshot 1`] = `
+exports[`App has a valid snapshot 1`] = `
 <div>
   <h1>
     Do You Remember?
@@ -17,7 +17,7 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="sleeping.png"
+          src="crying.png"
         />
       </div>
       <div
@@ -26,7 +26,7 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="nerd-with-glasses.png"
+          src="rolling-eyes.png"
         />
       </div>
       <div
@@ -35,7 +35,7 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="smirk.png"
+          src="very-sad.png"
         />
       </div>
       <div
@@ -44,34 +44,7 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="tongue-out.png"
-        />
-      </div>
-      <div
-        className="sc-bdVaJa kPlaWI"
-        onClick={[Function]}
-      >
-        <img
-          alt="random emoji"
-          src="kiss-face-smiling-eyes.png"
-        />
-      </div>
-      <div
-        className="sc-bdVaJa kPlaWI"
-        onClick={[Function]}
-      >
-        <img
-          alt="random emoji"
-          src="kiss-face-smiling-eyes.png"
-        />
-      </div>
-      <div
-        className="sc-bdVaJa kPlaWI"
-        onClick={[Function]}
-      >
-        <img
-          alt="random emoji"
-          src="sleeping.png"
+          src="hungry.png"
         />
       </div>
       <div
@@ -89,7 +62,43 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="tongue-out.png"
+          src="rolling-eyes.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="crying.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="hungry.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="flushed.png"
+        />
+      </div>
+      <div
+        className="sc-bdVaJa kPlaWI"
+        onClick={[Function]}
+      >
+        <img
+          alt="random emoji"
+          src="flushed.png"
         />
       </div>
       <div
@@ -107,16 +116,7 @@ exports[`has a valid snapshot 1`] = `
       >
         <img
           alt="random emoji"
-          src="smirk.png"
-        />
-      </div>
-      <div
-        className="sc-bdVaJa kPlaWI"
-        onClick={[Function]}
-      >
-        <img
-          alt="random emoji"
-          src="nerd-with-glasses.png"
+          src="very-sad.png"
         />
       </div>
       <div
