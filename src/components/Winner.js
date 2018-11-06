@@ -37,9 +37,9 @@ const Winner = ({
 	newBest,
 	replay
 }) =>
-	<Banner>
-		<BannerTitle>Winner!!!</BannerTitle>
-		<Score>Moves: {moves}</Score>
+	<Banner id="banner">
+		<BannerTitle id="banner-title">Winner!!!</BannerTitle>
+		<Score id="score">Moves: {moves}</Score>
 		{newBest &&
 			<BannerSubTitle className="flicker">
 				New Record!

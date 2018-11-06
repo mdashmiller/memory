@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Winner /> has a valid snapshot 1`] = `
+<div
+  className="sc-bwzfXH gaSrbo"
+  id="banner"
+>
+  <p
+    className="sc-htpNat lhATxg"
+    id="banner-title"
+  >
+    Winner!!!
+  </p>
+  <p
+    className="sc-bxivhb jjmwiE"
+    id="score"
+  >
+    Moves: 
+  </p>
+  <button
+    className="sc-bdVaJa eknjhX"
+  >
+    Play Again?
+  </button>
+</div>
+`;

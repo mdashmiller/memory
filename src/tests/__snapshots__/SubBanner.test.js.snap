@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SubBanner /> has a valid snapshot 1`] = `
+<div
+  className="sc-bdVaJa lcbIRV"
+  id="sub-banner"
+>
+  Best Score: 
+  1
+</div>
+`;
