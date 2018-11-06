@@ -15,7 +15,7 @@ const displayScore = score =>
 	score ? score : '?'
 
 const SubBanner = ({ bestScore }) =>
-	<StyledSubBanner>
+	<StyledSubBanner id="sub-banner">
 		Best Score: {displayScore(bestScore)}
 	</StyledSubBanner>
 

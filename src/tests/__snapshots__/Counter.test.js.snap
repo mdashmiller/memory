@@ -4,11 +4,13 @@ exports[`Counter has a valid snapshot 1`] = `
 <div>
   <h4
     className="sc-bdVaJa dDXGtt"
+    id="label"
   >
     MOVES
   </h4>
   <div
     className="sc-bwzfXH bBXLIZ"
+    id="counter"
   />
 </div>
 `;

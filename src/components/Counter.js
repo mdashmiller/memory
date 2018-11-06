@@ -18,8 +18,8 @@ const StyledCounter = styled.div`
 
 const Counter = ({ moves }) => 
 	<div>
-		<CounterLabel>MOVES</CounterLabel>
-		<StyledCounter>
+		<CounterLabel id="label">MOVES</CounterLabel>
+		<StyledCounter id="counter">
 			{moves}
 		</StyledCounter>
 	</div>
