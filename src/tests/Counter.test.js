@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import chai, { expect } from 'chai'
 
 import Counter from '../components/Counter'
 
 Enzyme.configure({ adapter: new Adapter() })
+
+global.jestExpect = global.expect
+global.expect = chai.expect
 
 describe('Counter', () => {
 
@@ -23,17 +27,17 @@ describe('Counter', () => {
 			<Counter>{moves}</Counter>
 		)
 		let tree = component.toJSON()
-		expect(tree).toMatchSnapshot()
+		jestExpect(tree).toMatchSnapshot()
 	})
 
 	it('renders 1 h4#label', () => {
 		const wrapper = shallow(<Counter />)
-		expect(wrapper.find('#label').length).toBe(1)
+		expect(wrapper.find('#label')).to.have.lengthOf(1)
 	})
 
 	it('renders 1 div#counter', () => {
 		const wrapper = shallow(<Counter />)
-		expect(wrapper.find('#counter').length).toBe(1)
+		expect(wrapper.find('#counter')).to.have.lengthOf(1)
 	})
 
 })
