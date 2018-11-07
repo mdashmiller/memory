@@ -24,27 +24,27 @@ const ScoreBoard = ({ posMatches }) =>
 	// for each match the user makes
 	<div style={{ textAlign: 'center' }}>
 		{posMatches.length > 1
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 		{posMatches.length > 3
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 		{posMatches.length > 5
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 		{posMatches.length > 7
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 		{posMatches.length > 9
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 		{posMatches.length > 11
-			? <LilSmile src={emojisArr[7]} alt="smiley face" className="smile"></LilSmile>
+			? <LilSmile src={emojisArr[39]} alt="smiley face" className="smile"></LilSmile>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 	</div>
