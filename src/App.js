@@ -35,7 +35,8 @@ class App extends Component {
 	}
 
 	flipCard = (cardPosition, imgNumber) => {
-		// sets the state of each card that is clicked
+		// tracks the positions of cards that have
+		// been clicked and the last position clicked
 		const { positionsClicked, lastPosRevealed } = this.state
 		positionsClicked.push(cardPosition)
 		// if lastPosRevealed is empty then fill it with
@@ -92,12 +93,12 @@ class App extends Component {
 			moves: updatedMoves,
 			displayMoves: updatedDisplayMoves
 		})
-		posMatches.length === 12 && this.updatebestScore(updatedMoves)		
+		posMatches.length === 12 && this.updateBestScore(updatedMoves)		
 	}
 
 	zeroPad = num => {
 		// works correctly in this application by taking
-		// a positive integer and returns a string
+		// a positive integer and returning a string
 		// with a propended zero for single digits
 		if (num < 10) {
 			return '0' + num
@@ -105,7 +106,7 @@ class App extends Component {
 		return num.toString()
 	}
 
-	updatebestScore = moves => {
+	updateBestScore = moves => {
 		const { bestScore } = this.state
 		// when user achieves a new best score
 		// update it in local storage and state

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import chai, { expect } from 'chai'
+import chai, { expect, assert } from 'chai'
 import { spy } from 'sinon'
 
 import App from '../App'
@@ -20,7 +20,7 @@ Enzyme.configure({ adapter: new Adapter() })
 global.jestExpect = global.expect
 global.expect = chai.expect
 
-describe('App', () => {
+describe('<App /> rendering and interaction tests', () => {
 
 	it('renders without crashing', () => {
 	  const div = document.createElement('div')
@@ -93,3 +93,150 @@ describe('App', () => {
 	})
 
 })
+
+describe('directly invoking "handleClick" method from component instance', () => {
+
+	it('calls "flipCard" and "checkForMatch" methods', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		jest.spyOn(instance, 'flipCard')
+		instance.handleClick(1, 2)
+		jestExpect(instance.flipCard).toHaveBeenCalledWith(1, 2)
+		jest.spyOn(instance, 'checkForMatch')
+		instance.handleClick(1, 2)
+		jestExpect(instance.checkForMatch).toHaveBeenCalledWith(2, 1)
+	})
+
+})
+
+describe('directly invoking "flipCard" from component instance', () => {
+
+	it('updates state with the position number and image number of the card that was clicked', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		instance.flipCard(1, 2)
+		jestExpect(wrapper.state('positionsClicked')).toEqual([1])
+		jestExpect(wrapper.state('lastImgRevealed')).toBe(2)
+		jestExpect(wrapper.state('lastPosRevealed')).toBe(1)
+	})
+
+	it('overwrites lastPosRevealed if there already is one', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({ lastPosRevealed: 3 })
+		instance.flipCard(1, 2)
+		jestExpect(wrapper.state('lastPosRevealed')).toBe(3)
+	})
+
+})
+
+describe('directly invoking "checkForMatch" from component instance', () => {
+
+	it('calls "recordMatch" and "updateMoves" if this is the second card and it matches the first', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		// calls recordMatch()
+		wrapper.setState({ lastImgRevealed: 1, lastPosRevealed: 2 })
+		jest.spyOn(instance, 'recordMatch')
+		instance.checkForMatch(1, 3)
+		jestExpect(instance.recordMatch).toHaveBeenCalledWith([2, 3])
+		// calls updateMoves()
+		wrapper.setState({ lastImgRevealed: 1 })
+		jest.spyOn(instance, 'updateMoves')
+		instance.checkForMatch(1)
+		jestExpect(instance.updateMoves).toHaveBeenCalled()
+	})
+
+	it('calls "flipBack" and "updateMoves" if this is the second card but it does not match the first', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		// calls flipBack()
+		wrapper.setState({ lastImgRevealed: 1 })
+		jest.useFakeTimers()
+		jest.spyOn(instance, 'flipBack')
+		instance.checkForMatch(2)
+		jestExpect(setTimeout).toHaveBeenCalledTimes(1)
+		jest.runOnlyPendingTimers()
+		jestExpect(instance.flipBack).toHaveBeenCalled()
+		// calls updateMoves()
+		wrapper.setState({ lastImgRevealed: 1 })
+		jest.spyOn(instance, 'updateMoves')
+		instance.checkForMatch(2)
+		jestExpect(instance.updateMoves).toHaveBeenCalled()
+	})
+
+})
+
+describe('directly invoking "recordMatch" from component instance', () => {
+
+	it('adds the position matches to state and starts a new two-card comparison cycle', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({
+			positionsClicked: [1, 2],
+			posMatches: [1, 2],
+			lastImgRevealed: 3,
+			lastPosRevealed: 2
+		})
+		instance.recordMatch([1, 2, 3, 4])
+		jestExpect(wrapper.state('positionsClicked')).toEqual([])
+		jestExpect(wrapper.state('posMatches')).toEqual([1, 2, 3, 4])
+		jestExpect(wrapper.state('lastImgRevealed')).toBe(null)
+		jestExpect(wrapper.state('lastPosRevealed')).toBe(null)
+	})
+
+})
+
+describe('directly invoking "updateMoves" from component instance', () => {
+
+	let wrapper
+	let instance
+
+	beforeEach(() => {
+		wrapper = shallow(<App />)
+		instance = wrapper.instance()
+	})
+
+	it('calls "zeroPad"', () => {
+		wrapper.setState({ moves: 1 })
+		jest.spyOn(instance, 'zeroPad')
+		instance.updateMoves()
+		jestExpect(instance.zeroPad).toHaveBeenCalledWith(2)
+	})
+
+	it('updates state correctly', () => {
+		wrapper.setState({ moves: 1, displayMoves: '01' })
+		instance.updateMoves()
+		jestExpect(wrapper.state('moves')).toBe(2)
+		jestExpect(wrapper.state('displayMoves')).toBe('02')
+	})
+
+	it('calls "updateBestScore" when all matches are found', () => {
+		wrapper.setState({ 
+			posMatches: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+			moves: 1
+			})
+		jest.spyOn(instance, 'updateBestScore')
+		instance.updateMoves()
+		jestExpect(instance.updateBestScore).toHaveBeenCalledWith(2)
+	})
+
+})
+
+describe('directly invoking "zeroPad" from component instance', () => {
+
+	it('adds leading zero when needed and returns a string', () => {
+		let test
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		test = instance.zeroPad(0)
+		expect(test).to.equal('00')
+		test = instance.zeroPad(1)
+		expect(test).to.equal('01')
+		test = instance.zeroPad(10)
+		expect(test).to.equal('10')
+	})
+
+})
+
+
