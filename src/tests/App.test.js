@@ -36,11 +36,13 @@ describe('App', () => {
 	// 	jestExpect(tree).toMatchSnapshot()
 	// })
 
-	// it('renders the <Winner /> component when all the matches are found', () => {
-	// 	const posMatches = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-	// 	const wrapper = shallow(<App posMatches={posMatches} />)
-	// 	expect(wrapper.find('Winner')).to.have.lengthOf(1)
-	// })
+	it('renders the <Winner /> component when all the matches are found', () => {
+		const wrapper = shallow(<App />)
+		wrapper.setState({
+			posMatches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+		})		
+		expect(wrapper.find(Winner)).to.have.lengthOf(1)
+	})
 
 	it('renders 1 <Grid /> component', () => {
 		const wrapper = shallow(<App />)
@@ -80,6 +82,14 @@ describe('App', () => {
 	it('renders 1 <SubBanner /> component', () => {
 		const wrapper = shallow(<App />)
 		expect(wrapper.find(SubBanner)).to.have.lengthOf(1)
+	})
+
+	it('handles click events', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		const reset = spy(instance, 'shuffle')
+		wrapper.find(Button).simulate('click')
+		expect(reset).to.have.property('callCount', 1)
 	})
 
 })
