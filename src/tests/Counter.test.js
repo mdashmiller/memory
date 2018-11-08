@@ -14,30 +14,35 @@ global.expect = chai.expect
 
 describe('Counter', () => {
 
-	const moves = '00'
-
 	it('renders without crashing', () => {
 		const div = document.createElement('div')
-		ReactDOM.render(<Counter>{moves}</Counter>, div)
+		ReactDOM.render(<Counter />, div)
 		ReactDOM.unmountComponentAtNode(div)
 	})
 
 	test('has a valid snapshot', () => {
 		const component = renderer.create(
-			<Counter>{moves}</Counter>
+			<Counter />
 		)
 		let tree = component.toJSON()
 		jestExpect(tree).toMatchSnapshot()
 	})
 
-	it('renders 1 h4#label', () => {
+	it('renders 1 h4 #label', () => {
 		const wrapper = shallow(<Counter />)
 		expect(wrapper.find('#label')).to.have.lengthOf(1)
 	})
 
-	it('renders 1 div#counter', () => {
+	it('renders 1 div #counter', () => {
 		const wrapper = shallow(<Counter />)
 		expect(wrapper.find('#counter')).to.have.lengthOf(1)
+	})
+
+	it('shows the correct number of moves', () => {
+		const moves = '00'
+		const wrapper = shallow(<Counter moves={moves} />)
+		expect(wrapper.find('#counter').props().children)
+			.to.equal('00')
 	})
 
 })

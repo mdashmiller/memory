@@ -14,27 +14,37 @@ global.expect = chai.expect
 
 describe('<SubBanner />', () => {
 
-	const bestScore = 1
-
 	it('renders without crashing', () => {
 		const div = document.createElement('div')
-		ReactDOM.render(<SubBanner bestScore={bestScore} />, div)
+		ReactDOM.render(<SubBanner />, div)
 		ReactDOM.unmountComponentAtNode(div)
 	})
 
 	test('has a valid snapshot', () => {
 		const component = renderer.create(
-			<SubBanner bestScore={bestScore} />
+			<SubBanner />
 		)
 		let tree = component.toJSON()
 		jestExpect(tree).toMatchSnapshot()
 	})
 
-	it('renders 1 div#banner', () => {
-		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
+	it('renders 1 div #sub-banner', () => {
+		const wrapper = shallow(<SubBanner />)
 		expect(wrapper.find('#sub-banner')).to.have.lengthOf(1)
 	})
 
-	//it('displays the correct item for score' () => {})
+	it('displays the best score when it exists', () => {
+		const bestScore = 1
+		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
+		expect(wrapper.find('#sub-banner').props().children[1])
+			.to.equal(1)
+	})
+
+	it('displays a ? char when no best score exists', () => {
+		const bestScore = null
+		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
+		expect(wrapper.find('#sub-banner').props().children[1])
+			.to.equal('?')
+	})
 
 })
