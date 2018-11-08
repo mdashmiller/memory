@@ -245,14 +245,14 @@ class App extends Component {
 			<div className="main">
 				<h1>Do You Remember?</h1>
 
-				{	posMatches.length === 12 &&
+			{	posMatches.length === 12 &&
 					<Winner
 						moves={moves}
 						newBest={newBest}
 						replay={() => this.shuffle()}
 					>
 					</Winner>
-				}
+			}
 
 				<Grid className={ positionsClicked.length > 1 ? 'disabled' : undefined }>
 					{this.createGameBoard()}
