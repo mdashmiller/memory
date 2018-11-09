@@ -239,4 +239,77 @@ describe('directly invoking "zeroPad" from component instance', () => {
 
 })
 
+describe('directly invoking "updateBestScore" from component instance', () => {
 
+	it('calls "newRecord" when there is a new best score', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({ bestScore: 2 })
+		jest.spyOn(instance, 'newRecord')
+		instance.updateBestScore(1)
+		jestExpect(instance.newRecord).toHaveBeenCalled()
+	})
+
+	it('sets state with new best score', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({ bestScore: 2 })
+		instance.updateBestScore(1)
+		jestExpect(wrapper.state('bestScore')).toBe(1)
+	})
+
+})
+
+describe('directly invoking "newRecord" from component instance', () => {
+
+	it('sets state newBest to true', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({ newBest: false })
+		instance.newRecord()
+		jestExpect(wrapper.state('newBest')).toBe(true)
+	})
+
+})
+
+describe('directly invoking "flipBack" from component instance', () => {
+
+	it('sets state to prepare the game board for a new comparison cycle', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		wrapper.setState({
+			positionsClicked: [1, 2],
+			lastImgRevealed: 3,
+			lastPosRevealed: 2
+		})
+		instance.flipBack()
+		jestExpect(wrapper.state('positionsClicked')).toEqual([])
+		jestExpect(wrapper.state('lastImgRevealed')).toBe(null)
+		jestExpect(wrapper.state('lastPosRevealed')).toBe(null)
+	})
+
+})
+
+describe('directly invoking "setRandomInts" from component instance', () => {
+
+	it('calls "createUniqueInt"', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		jest.spyOn(instance, 'createUniqueInt')
+		instance.setRandomInts()
+		jestExpect(instance.createUniqueInt).toHaveBeenCalled()
+	})
+
+	it('calls "randomizeArray"', () => {
+		const wrapper = shallow(<App />)
+		const instance = wrapper.instance()
+		jest.spyOn(instance, 'randomizeArray')
+		instance.setRandomInts()
+		jestExpect(instance.randomizeArray).toHaveBeenCalled()
+	})
+
+	// it('sets randomInts in state', () => {
+		
+	// })
+
+})
