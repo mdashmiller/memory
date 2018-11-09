@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import chai, { expect } from 'chai'
 
 import SubBanner from '../components/SubBanner'
 
 Enzyme.configure({ adapter: new Adapter() })
-
-global.jestExpect = global.expect
-global.expect = chai.expect
 
 describe('<SubBanner />', () => {
 
@@ -25,26 +21,24 @@ describe('<SubBanner />', () => {
 			<SubBanner />
 		)
 		let tree = component.toJSON()
-		jestExpect(tree).toMatchSnapshot()
+		expect(tree).toMatchSnapshot()
 	})
 
 	it('renders 1 div #sub-banner', () => {
 		const wrapper = shallow(<SubBanner />)
-		expect(wrapper.find('#sub-banner')).to.have.lengthOf(1)
+		expect(wrapper.find('#sub-banner')).toHaveLength(1)
 	})
 
 	it('displays the best score when it exists', () => {
 		const bestScore = 1
 		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
-		expect(wrapper.find('#sub-banner').props().children[1])
-			.to.equal(1)
+		expect(wrapper.find('#sub-banner').props().children[1]).toBe(1)
 	})
 
 	it('displays a ? char when no best score exists', () => {
 		const bestScore = null
 		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
-		expect(wrapper.find('#sub-banner').props().children[1])
-			.to.equal('?')
+		expect(wrapper.find('#sub-banner').props().children[1]).toBe('?')
 	})
 
 })

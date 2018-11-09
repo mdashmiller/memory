@@ -165,10 +165,10 @@ class App extends Component {
 	}
 
 	getRandomInt = max =>
-		// creates an almost-random integer
+		// creates an almost-random positive integer
 		// equal to or less than the highest index
 		// of emojisArr
-		Math.floor(Math.random() * Math.floor(max))
+		Math.floor(Math.random() * max)
 
 	randomizeArray = arr =>
 		// shuffles the order of integers in an array
