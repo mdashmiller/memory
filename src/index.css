@@ -37,6 +37,10 @@ img {
 	grid-column: 2 / span 2;
 }
 
+#banner {
+	z-index: 1;
+}
+
 .disabled {
 	/* prevents user from triggering multiple click
 	events on cards that have already been revealed 
