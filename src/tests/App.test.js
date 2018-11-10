@@ -355,13 +355,48 @@ describe('directly invoking "getRandomInt" from component instance', () => {
 
 })
 
-// describe('directly invoking "randomizeArray" from component instance', () => {
+describe('directly invoking "randomizeArray" from component instance', () => {
 
-	// 	it('returns an array with the item order randomized' () => {
+		it('returns an array with the item order randomized', () => {
+			const wrapper = shallow(<App />)
+			const instance = wrapper.instance()
+			// create an example array of integer pairs
+			// and pass it to the function
+			const arr = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6]
+			const randomizedArr = instance.randomizeArray(arr)
+			// check that the integers have been shuffled
+			// in the array
 
-	// 	})
+			// slice out mini arrays from the randomized array,
+			// each containing a sequential pair
+			const firstPair = randomizedArr.slice(0, 2)
+			const secondPair = randomizedArr.slice(2, 4)
+			const thirdPair = randomizedArr.slice(4, 6)
+			const fourthPair = randomizedArr.slice(6, 8)
+			const fifthPair = randomizedArr.slice(8, 10)
+			const sixthPair = randomizedArr.slice(10, 12)
+			// then push them into an array so it
+			// can easily be looped through
+			const comparisonArr = []
+			comparisonArr.push(firstPair, secondPair, thirdPair, fourthPair, fifthPair, sixthPair)
+			// this function will return as soon as it finds
+			// a pair that doesn't match, thus ensuring that
+			// shuffling has occured
+			const findFirstDifference = arr => {
+				for(let i = 0; i < arr.length; i++) {
+					if (arr[i][0] != arr[i][1]) {
+						return true
+					}
+				}
+			} 
+			// call the function and store its result if true
+			const randomized = findFirstDifference(comparisonArr)
+				? findFirstDifference(comparisonArr) : false
 
-// })
+			expect(randomized).toBe(true)
+		})
+
+})
 
 describe('directly invoking "shuffle" from component instance', () => {
 
@@ -407,7 +442,7 @@ describe('directly invoking "shuffle" from component instance', () => {
 
 describe('directly invoking "createGameBoard" from component instance', () => {
 
-	it('returns an array of 12 items', () => {
+	it('returns an array of 12 <Card /> components', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		const gameBoard = instance.createGameBoard()
@@ -415,9 +450,9 @@ describe('directly invoking "createGameBoard" from component instance', () => {
 		gameBoard.forEach(item => {
 			expect(item).toBeInstanceOf(Object)
 		})
-		// gameBoard.forEach(item => {
-		// 	expect(item).toHaveProperty('onClick', expect.any(Function))
-		// })
+		gameBoard.forEach(item => {
+			expect(item).toHaveProperty('key', expect.any(String))
+		})
 	})
 
 })
