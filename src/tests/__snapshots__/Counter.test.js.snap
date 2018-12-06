@@ -11,6 +11,8 @@ exports[`Counter has a valid snapshot 1`] = `
   <div
     className="sc-bwzfXH bBXLIZ"
     id="counter"
-  />
+  >
+    00
+  </div>
 </div>
 `;

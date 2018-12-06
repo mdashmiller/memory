@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import emojisArr from '../assets/images-arr'
+import PropTypes from 'prop-types'
 
 const EmptyCircle = styled.div`
 	width: 22px;
@@ -48,5 +49,9 @@ const ScoreBoard = ({ posMatches }) =>
 			: <EmptyCircle className="empty"></EmptyCircle>
 		}
 	</div>
+
+ScoreBoard.propTypes = {
+	posMatches: PropTypes.arrayOf(PropTypes.number).isRequired
+}
 
 export default ScoreBoard

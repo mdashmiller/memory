@@ -16,9 +16,16 @@ exports[`<Winner /> has a valid snapshot 1`] = `
     id="score"
   >
     Moves: 
+    5
+  </p>
+  <p
+    className="flicker sc-ifAKCX gvkNLs"
+  >
+    New Record!
   </p>
   <button
     className="sc-bdVaJa eknjhX"
+    onClick={[MockFunction]}
   >
     Play Again?
   </button>

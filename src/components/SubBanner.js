@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledSubBanner = styled.div`
 	grid-column: 2 / span 2;
@@ -18,5 +19,9 @@ const SubBanner = ({ bestScore }) =>
 	<StyledSubBanner id="sub-banner">
 		Best Score: {displayScore(bestScore)}
 	</StyledSubBanner>
+
+SubBanner.propTypes = {
+	bestScore: PropTypes.number
+}
 
 export default SubBanner
