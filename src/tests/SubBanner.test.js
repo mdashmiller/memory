@@ -30,14 +30,12 @@ describe('<SubBanner />', () => {
 	})
 
 	it('displays the best score when it exists', () => {
-		const bestScore = 1
-		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
-		expect(wrapper.find('#sub-banner').props().children[1]).toBe(1)
+		const wrapper = shallow(<SubBanner bestScore={10} />)
+		expect(wrapper.find('#sub-banner').props().children[1]).toBe(10)
 	})
 
 	it('displays a ? char when no best score exists', () => {
-		const bestScore = null
-		const wrapper = shallow(<SubBanner bestScore={bestScore} />)
+		const wrapper = shallow(<SubBanner bestScore={null} />)
 		expect(wrapper.find('#sub-banner').props().children[1]).toBe('?')
 	})
 

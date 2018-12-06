@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const CounterLabel = styled.h4`
 	color: #bbc4ef;
@@ -23,5 +24,9 @@ const Counter = ({ moves }) =>
 			{moves}
 		</StyledCounter>
 	</div>
+
+Counter.propTypes = {
+	moves: PropTypes.string.isRequired
+}
 
 export default Counter

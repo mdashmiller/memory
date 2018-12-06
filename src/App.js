@@ -261,7 +261,7 @@ class App extends Component {
 						<Counter moves={displayMoves}></Counter>
 					</div>
 					<div className="button-row score">
-						<ScoreBoard posMatches={this.state.posMatches}>
+						<ScoreBoard posMatches={posMatches}>
 						</ScoreBoard>
 					</div>
 					<div className="button-row">

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
+import PropTypes from 'prop-types'
 
 const Banner = styled.div`
 	opacity: 0.9;
@@ -52,5 +53,11 @@ const Winner = ({
 			Play Again?
 		</Button>
 	</Banner>
+
+Winner.propTypes = {
+	moves: PropTypes.number.isRequired,
+	newBest: PropTypes.bool.isRequired,
+	replay: PropTypes.func.isRequired
+}
 
 export default Winner
