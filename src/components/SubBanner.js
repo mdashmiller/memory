@@ -21,7 +21,10 @@ const SubBanner = ({ bestScore }) =>
 	</StyledSubBanner>
 
 SubBanner.propTypes = {
-	bestScore: PropTypes.number
+	bestScore: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string
+	])
 }
 
 export default SubBanner
