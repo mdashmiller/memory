@@ -36,6 +36,7 @@ describe('Counter', () => {
 	})
 
 	it('renders 1 div #counter', () => {
+		expect(wrapper.find('#counter').length).toBe(1)
 	})
 
 	it('shows the correct number of moves', () => {

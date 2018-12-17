@@ -18,6 +18,12 @@ Enzyme.configure({ adapter: new Adapter() })
 
 describe('<App /> rendering and interaction tests', () => {
 
+	let wrapper
+
+	beforeEach(() => {
+		wrapper = shallow(<App />)
+	})
+
 	it('renders without crashing', () => {
 	  const div = document.createElement('div')
 	  ReactDOM.render(<App />, div)
@@ -29,62 +35,59 @@ describe('<App /> rendering and interaction tests', () => {
 	// 		<App />
 	// 	)
 	// 	let tree = component.toJSON()
+
+	// 	// need to find a way to tell it
+	// 	// to expect any image for each
+	// 	// position on the gameboard
 	// 	expect(tree).toMatchSnapshot()
 	// })
 
 	it('renders the <Winner /> component when all the matches are found', () => {
-		const wrapper = shallow(<App />)
 		wrapper.setState({
 			posMatches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-		})		
+		})
+
 		expect(wrapper.find(Winner).length).toBe(1)
 	})
 
 	it('renders 1 <Grid /> component', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find(Grid).length).toBe(1)
 	})
 	
 	it('renders 3 div.button-row', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find('div.button-row').length).toBe(3)
 	})
 
 	it('renders 1 div.counter', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find('div.counter').length).toBe(1)
 	})
 
 	it('renders 1 <Counter /> component', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find(Counter).length).toBe(1)
 	})
 
 	it('renders 1 div.score', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find('div.score').length).toBe(1)
 	})
 
 	it('renders 1 <ScoreBoard /> component', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find(ScoreBoard).length).toBe(1)
 	})
 
 	it('renders 1 <Button /> component', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find(Button).length).toBe(1)
 	})
 
 	it('renders 1 <SubBanner /> component', () => {
-		const wrapper = shallow(<App />)
 		expect(wrapper.find(SubBanner).length).toBe(1)
 	})
 
 	it('handles click events', () => {
-		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		jest.spyOn(instance, 'shuffle')
+
 		wrapper.find(Button).simulate('click')
+
 		expect(instance.shuffle).toHaveBeenCalled()
 	})
 
@@ -96,10 +99,15 @@ describe('directly invoking "handleClick" method from component instance', () =>
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		jest.spyOn(instance, 'flipCard')
+
 		instance.handleClick(1, 2)
+
 		expect(instance.flipCard).toHaveBeenCalledWith(1, 2)
+
 		jest.spyOn(instance, 'checkForMatch')
+
 		instance.handleClick(1, 2)
+
 		expect(instance.checkForMatch).toHaveBeenCalledWith(2, 1)
 	})
 
@@ -110,7 +118,9 @@ describe('directly invoking "flipCard" from component instance', () => {
 	it('updates state with the position number and image number of the card that was clicked', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
+
 		instance.flipCard(1, 2)
+
 		expect(wrapper.state('positionsClicked')).toEqual([1])
 		expect(wrapper.state('lastImgRevealed')).toBe(2)
 		expect(wrapper.state('lastPosRevealed')).toBe(1)
@@ -120,7 +130,9 @@ describe('directly invoking "flipCard" from component instance', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		wrapper.setState({ lastPosRevealed: 3 })
+
 		instance.flipCard(1, 2)
+
 		expect(wrapper.state('lastPosRevealed')).toBe(3)
 	})
 
@@ -131,33 +143,47 @@ describe('directly invoking "checkForMatch" from component instance', () => {
 	it('calls "recordMatch" and "updateMoves" if this is the second card and it matches the first', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
+
 		// calls recordMatch()
 		wrapper.setState({ lastImgRevealed: 1, lastPosRevealed: 2 })
 		jest.spyOn(instance, 'recordMatch')
+
 		instance.checkForMatch(1, 3)
+
 		expect(instance.recordMatch).toHaveBeenCalledWith([2, 3])
+
 		// calls updateMoves()
 		wrapper.setState({ lastImgRevealed: 1 })
 		jest.spyOn(instance, 'updateMoves')
+
 		instance.checkForMatch(1)
+
 		expect(instance.updateMoves).toHaveBeenCalled()
 	})
 
 	it('calls "flipBack" and "updateMoves" if this is the second card but it does not match the first', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
+
 		// calls flipBack()
 		wrapper.setState({ lastImgRevealed: 1 })
 		jest.useFakeTimers()
 		jest.spyOn(instance, 'flipBack')
+
 		instance.checkForMatch(2)
+
 		expect(setTimeout).toHaveBeenCalledTimes(1)
+
 		jest.runOnlyPendingTimers()
+
 		expect(instance.flipBack).toHaveBeenCalled()
+
 		// calls updateMoves()
 		wrapper.setState({ lastImgRevealed: 1 })
 		jest.spyOn(instance, 'updateMoves')
+
 		instance.checkForMatch(2)
+
 		expect(instance.updateMoves).toHaveBeenCalled()
 	})
 
@@ -174,7 +200,9 @@ describe('directly invoking "recordMatch" from component instance', () => {
 			lastImgRevealed: 3,
 			lastPosRevealed: 2
 		})
+
 		instance.recordMatch([1, 2, 3, 4])
+
 		expect(wrapper.state('positionsClicked')).toEqual([])
 		expect(wrapper.state('posMatches')).toEqual([1, 2, 3, 4])
 		expect(wrapper.state('lastImgRevealed')).toBe(null)
@@ -196,13 +224,17 @@ describe('directly invoking "updateMoves" from component instance', () => {
 	it('calls "zeroPad"', () => {
 		wrapper.setState({ moves: 1 })
 		jest.spyOn(instance, 'zeroPad')
+
 		instance.updateMoves()
+
 		expect(instance.zeroPad).toHaveBeenCalledWith(2)
 	})
 
 	it('updates state correctly', () => {
 		wrapper.setState({ moves: 1, displayMoves: '01' })
+
 		instance.updateMoves()
+
 		expect(wrapper.state('moves')).toBe(2)
 		expect(wrapper.state('displayMoves')).toBe('02')
 	})
@@ -213,7 +245,9 @@ describe('directly invoking "updateMoves" from component instance', () => {
 			moves: 1
 			})
 		jest.spyOn(instance, 'updateBestScore')
+
 		instance.updateMoves()
+
 		expect(instance.updateBestScore).toHaveBeenCalledWith(2)
 	})
 
@@ -225,11 +259,17 @@ describe('directly invoking "zeroPad" from component instance', () => {
 		let test
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
+
 		test = instance.zeroPad(0)
+
 		expect(test).toBe('00')
+
 		test = instance.zeroPad(1)
+
 		expect(test).toBe('01')
+
 		test = instance.zeroPad(10)
+
 		expect(test).toBe('10')
 	})
 
@@ -242,7 +282,9 @@ describe('directly invoking "updateBestScore" from component instance', () => {
 		const instance = wrapper.instance()
 		wrapper.setState({ bestScore: 2 })
 		jest.spyOn(instance, 'newRecord')
+
 		instance.updateBestScore(1)
+
 		expect(instance.newRecord).toHaveBeenCalled()
 	})
 
@@ -250,7 +292,9 @@ describe('directly invoking "updateBestScore" from component instance', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		wrapper.setState({ bestScore: 2 })
+
 		instance.updateBestScore(1)
+
 		expect(wrapper.state('bestScore')).toBe(1)
 	})
 
@@ -262,7 +306,9 @@ describe('directly invoking "newRecord" from component instance', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		wrapper.setState({ newBest: false })
+
 		instance.newRecord()
+
 		expect(wrapper.state('newBest')).toBe(true)
 	})
 
@@ -278,7 +324,9 @@ describe('directly invoking "flipBack" from component instance', () => {
 			lastImgRevealed: 3,
 			lastPosRevealed: 2
 		})
+
 		instance.flipBack()
+
 		expect(wrapper.state('positionsClicked')).toEqual([])
 		expect(wrapper.state('lastImgRevealed')).toBe(null)
 		expect(wrapper.state('lastPosRevealed')).toBe(null)
@@ -298,13 +346,17 @@ describe('directly invoking "setRandomInts" from component instance', () => {
 
 	it('calls "createUniqueInt"', () => {
 		jest.spyOn(instance, 'createUniqueInt')
+
 		instance.setRandomInts()
+
 		expect(instance.createUniqueInt).toHaveBeenCalled()
 	})
 
 	it('calls "randomizeArray"', () => {
 		jest.spyOn(instance, 'randomizeArray')
+
 		instance.setRandomInts()
+
 		expect(instance.randomizeArray).toHaveBeenCalled()
 	})
 
@@ -313,13 +365,18 @@ describe('directly invoking "setRandomInts" from component instance', () => {
 		wrapper.setState({
 			randomInts: []
 		})
+
 		instance.setRandomInts()
+
 		expect(wrapper.state('randomInts').length).toBe(12)
+
 		// check when state.randomInts contains values
 		wrapper.setState({
 			randomInts: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6]
 		})
+
 		instance.setRandomInts()
+
 		expect(wrapper.state('randomInts').length).toBe(12)
 	})
 
@@ -337,6 +394,7 @@ describe('directly invoking "createUniqueInt" from component instance', () => {
 		}
 		// (emojisArr.length - 1) will now be the only int createUniqueInt can return
 		const uniqueInt = instance.createUniqueInt(intsArr)
+
 		expect(uniqueInt).toBe(emojisArr.length - 1)
 	})
 
@@ -350,6 +408,7 @@ describe('directly invoking "getRandomInt" from component instance', () => {
 		// getRandomInt can only return an int >= 0 and
 		// smaller than what is passed to it as an argument
 		const int = instance.getRandomInt(1)
+
 		expect(int).toBe(0)
 	})
 
@@ -417,7 +476,9 @@ describe('directly invoking "shuffle" from component instance', () => {
 			displayMoves: '05',
 			newBest: true
 		})
+
 		instance.shuffle()
+
 		expect(wrapper.state('randomInts').length).toBe(12)
 		expect(wrapper.state('positionsClicked')).toEqual([])
 		expect(wrapper.state('posMatches')).toEqual([])
@@ -428,13 +489,17 @@ describe('directly invoking "shuffle" from component instance', () => {
 
 	it('calls "flipBack"', () => {
 		jest.spyOn(instance, 'flipBack')
+
 		instance.shuffle()
+
 		expect(instance.flipBack).toHaveBeenCalled()
 	})
 
 	it('calls "setRandomInts"', () => {
 		jest.spyOn(instance, 'setRandomInts')
+
 		instance.shuffle()
+
 		expect(instance.setRandomInts).toHaveBeenCalled()
 	})
 
@@ -446,10 +511,13 @@ describe('directly invoking "createGameBoard" from component instance', () => {
 		const wrapper = shallow(<App />)
 		const instance = wrapper.instance()
 		const gameBoard = instance.createGameBoard()
+
 		expect((gameBoard).length).toBe(12)
+
 		gameBoard.forEach(item => {
 			expect(item).toBeInstanceOf(Object)
 		})
+
 		gameBoard.forEach(item => {
 			expect(item).toHaveProperty('key', expect.any(String))
 		})
@@ -463,7 +531,9 @@ describe('directly invoking "componentDidMount" from component instance', () => 
 		const wrapper = mount(<App />)
 		const instance = wrapper.instance()
 		jest.spyOn(instance, 'setRandomInts')
+
 		instance.componentDidMount()
+		
 		expect(instance.setRandomInts).toHaveBeenCalled()
 	})
 
