@@ -29,6 +29,7 @@ describe('<ScoreBoard />', () => {
 
 	it('renders empty circles at all positions', () => {
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.empty').length).toBe(6)
 	})
 
@@ -36,6 +37,7 @@ describe('<ScoreBoard />', () => {
 		matches = [1, 2]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.smile').length).toBe(1)
 	})
 
@@ -43,6 +45,7 @@ describe('<ScoreBoard />', () => {
 		matches = [3, 4]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.smile').length).toBe(2)
 	})
 
@@ -50,6 +53,7 @@ describe('<ScoreBoard />', () => {
 		matches = [5, 6]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.smile').length).toBe(3)
 	})
 
@@ -57,6 +61,7 @@ describe('<ScoreBoard />', () => {
 		matches = [7, 8]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.smile').length).toBe(4)
 	})
 
@@ -64,6 +69,7 @@ describe('<ScoreBoard />', () => {
 		matches = [9, 10]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+
 		expect(wrapper.find('.smile').length).toBe(5)
 	})
 
@@ -71,6 +77,7 @@ describe('<ScoreBoard />', () => {
 		matches = [11, 12]
 		posMatches.push(...matches)
 		const wrapper = shallow(<ScoreBoard posMatches={posMatches} />)
+		
 		expect(wrapper.find('.smile').length).toBe(6)
 	})
 
